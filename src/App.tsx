@@ -1,7 +1,8 @@
 import { Outlet } from "react-router-dom";
-import { Layout, Row } from 'antd';
+import { Button, Col, Layout, Row, Typography } from 'antd';
 import { Content, Footer, Header } from "antd/es/layout/layout";
-import { MenuOutlined } from '@ant-design/icons';
+import { AppMenu } from "./widgets/menu/Menu";
+
 
 const AppLayout: React.FC = () => {
   return (
@@ -14,9 +15,26 @@ const AppLayout: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
       }}>
-        <Row>
-          <MenuOutlined color='green'/>
-          <h1 color='green'>BEE KNEES</h1>
+        <Row gutter={[10, 10]} style={{ width: '100%' }} justify='center' align='middle'>
+          {/* <Col>
+            <BurgerMenu />
+          </Col> */}
+          <Col>
+            <Typography.Title level={1} style={{
+              color: 'greenyellow',
+              // letterSpacing: '90px',
+              textAlign: 'center',
+              margin: 0
+            }}>BEEKNEES</Typography.Title>
+          </Col>
+          <Col flex={'auto'}>
+            <AppMenu />
+          </Col>
+
+          {/* <Col >
+            <h1 color='green' s>BEE KNEES</h1>
+          </Col> */}
+
         </Row>
       </Header>
       <Content>

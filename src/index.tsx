@@ -2,21 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import { BrowserRouter,  RouterProvider } from 'react-router-dom';
+import { BrowserRouter, RouterProvider } from 'react-router-dom';
 import Router from './routing/Router';
 import { Provider } from 'react-redux';
-import { store } from './store/store';
+import { persistor, store } from './store/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { Spin } from 'antd';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <Router />
-    </BrowserRouter>
+    <PersistGate persistor={persistor} loading={<Spin></Spin>}>
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
+    </PersistGate>
   </Provider>
-    
+
 
 );
 

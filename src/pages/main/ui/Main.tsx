@@ -1,25 +1,22 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 
 import HOME_BACKGROUND from '../../../assets/images/home_background.png';
 import { BrandCard } from "../../../widgets/brands/BrandCard";
-import { Card, List, Space } from "antd";
+import { Card, Col, List, Row, Space, Spin } from "antd";
+import { useGetMainPageQuery } from "../../../store/beekneesApi";
+import { useNavigate } from "react-router-dom";
 
 const Main: React.FC = () => {
 
-    const data = [
-        {
-            title: 'Title 1',
-        },
-        {
-            title: 'Title 2',
-        },
-        {
-            title: 'Title 3',
-        },
-        {
-            title: 'Title 4',
-        },
-    ];
+    const navigate = useNavigate();
+    const { isLoading, data } = useGetMainPageQuery();
+
+    // useEffect(() => {
+    //     fetch(`http://localhost:7070/api/v1/bns/fixtures/run`, { method: 'POST' })
+    //         .then(res => console.log(res))
+    // }, [])
+
+    const categories = useMemo(() => ['Футболки', 'Штаны', 'Обувь', 'Шапки'], [])
 
     return (
         <>
@@ -35,35 +32,84 @@ const Main: React.FC = () => {
                     <div>Мужчинами</div>
                     <div>Женщинам</div>
                 </section>
-                <section style={{ overflowX: 'scroll' }}>
+                {data?.shopList && <section style={{ overflowX: 'scroll' }}>
                     <List
                         grid={{ gutter: 16, column: 4 }}
+                        loading={isLoading}
                         itemLayout='horizontal'
-                        dataSource={data}
+                        dataSource={data.shopList}
                         renderItem={(item) => (
-                            <List.Item>
-                                <BrandCard></BrandCard>
+                            <List.Item id={item.id}>
+                                <BrandCard image={item.logo_image?.filepath ?? ''} loading></BrandCard>
                             </List.Item>
 
                         )}
                     />
-                </section>
+                </section>}
                 <section style={{ overflowX: 'scroll' }}>
                     <h2>Категории</h2>
                     <List
                         grid={{ gutter: 16, column: 4 }}
                         itemLayout='horizontal'
-                        dataSource={data}
+                        dataSource={categories}
                         renderItem={(item) => (
-                            <List.Item>
-                                <Card title = ''></Card>
-                            </List.Item>
+                            // <List.Item>
+                            <Card
+                                hoverable
+                                style={{
+                                    maxHeight: 500,
+                                    maxWidth: 220
+                                }}
+                                title={item}
+                            />
+                            // </List.Item>
 
                         )}
                     />
                 </section>
-            </Space>
+                <section style={{ overflowX: 'scroll' }}>
+                    <h2>Скидки</h2>
+                    <List
+                        grid={{ gutter: 16, column: 4 }}
+                        itemLayout='horizontal'
+                        dataSource={categories}
+                        renderItem={(item) => (
+                            // <List.Item>
+                            <Card
+                                hoverable
+                                style={{
+                                    maxHeight: 500,
+                                    maxWidth: 220
+                                }}
+                                title={item}
+                            />
+                            // </List.Item>
+                        )}
+                    />
+                </section>
 
+            </Space>
+            <section style={{ overflowX: 'scroll' }}>
+                <h2>Популярные товары</h2>
+                <List
+                    grid={{ gutter: 16, column: 4 }}
+                    itemLayout='horizontal'
+                    dataSource={categories}
+                    renderItem={(item) => (
+                        // <List.Item>
+                        <Card
+                            hoverable
+                            onClick={() => navigate('')}
+                            style={{
+                                maxHeight: 500,
+                                maxWidth: 220
+                            }}
+                            title={item}
+                        />
+                        // </List.Item>
+                    )}
+                />
+            </section>
         </>
     )
 }
