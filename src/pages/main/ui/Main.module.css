@@ -1,0 +1,15 @@
+.MainSection {
+    margin-bottom: 15px;
+    padding: 15px;
+    width: 99dvw;
+}
+
+.MainSectionTitle {
+    margin-bottom: 15px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.MainCategoriesImage {
+    cursor: pointer;
+}

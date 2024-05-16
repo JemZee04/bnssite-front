@@ -4,7 +4,7 @@ import { ProductInCart } from "./types";
 import { RootState, useAppSelector } from "../../store";
 
 export const addOneToCart = createAction<ProductInList>('addToCart');
-export const deleteOneFromCart = createAction<Pick<ProductInList, 'id'>>('deleteFavorite');
+export const deleteOneFromCart = createAction<Pick<ProductInList, 'id'>>('deleteFromCart');
 export const addManyToCart = createAction<ProductInCart>('addManuToCart');
 export const deleteAllFromCart = createAction('clearCart');
 
@@ -31,7 +31,11 @@ const cartSlice = createSlice({
                 cartEntityAdapter.removeAll(state);
             }),
             builder.addCase(deleteOneFromCart, (state, action) => {
-                cartEntityAdapter.removeOne(state, action.payload.id ?? '');
+                const item = action.payload;
+                if (!item.id) return state;
+                const productInCart = cartEntityAdapter.getSelectors().selectById(state, item.id);
+                if (productInCart) cartEntityAdapter.updateOne(state, { id: item.id, changes: { count: productInCart.count - 1 } });
+                else cartEntityAdapter.removeOne(state, action.payload.id ?? '');
             }),
             builder.addCase(addManyToCart, (state, action) => {
                 const item = action.payload;

@@ -10,13 +10,15 @@ const Cart: React.FC = () => {
     return (
         <div style={{
             maxHeight: '850px',
-            overflowY: 'scroll'
-
+            overflowY: 'scroll',
+            overflowX: 'hidden'
         }}>
             <h1>Корзина</h1>
             <div style={{ marginBottom: 20 }}>{`${products.length} товаров`}</div>
+
             <List
                 itemLayout='vertical'
+                style={{ width: '100%', height: '100%' }}
                 dataSource={products}
                 renderItem={(item, _) => (
                     <List.Item>

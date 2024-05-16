@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../store/store";
 import { isFavoriteSelector } from "../store/slices/favorites";
 import { Button, Modal, message } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation} from "react-router-dom";
 import { CART_PATH } from "../shared/utils/constants";
 import { addOneToCart, isInCartSelector } from "../store/slices/cart";
 import { Size } from "../@types/types";
@@ -15,6 +15,8 @@ type AddToCartButtonProps = {
 }
 
 export const AddToCartButton: React.FC<AddToCartButtonProps> = ({ item }) => {
+
+    const location = useLocation();
 
     const [messageApi, contextHolder] = message.useMessage();
     const [isOpenSelectSize, setOpenSelectSize] = useState(false);

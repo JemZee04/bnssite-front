@@ -20,7 +20,7 @@ export const CartNumberInput: React.FC<CartNumberInputProps> = ({ item }) => {
     const onClear = () => dispatch(deleteAllFromCart());
 
     return (
-        <Row justify='space-between'>
+        <Row justify='space-between' style={{width: '100%'}}>
             <Space direction='horizontal'>
                 <Button shape='circle' icon={<MinusOutlined />} disabled={itemInCart.count == 1} onClick={onRemove} />
                 <div style={{ fontSize: 26, fontWeight: 'bold' }}>{itemInCart.count}</div>
