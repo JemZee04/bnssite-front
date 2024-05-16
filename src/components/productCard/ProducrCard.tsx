@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { PRODUCT_PATH } from "../../shared/utils/constants";
 import { ProductInList } from "../../store/beekneesApi";
 import styles from "./ProductCard.module.css";
+import NO_IMAGE from '../../assets/images/no_image.png';
 
 type ProductCardProps = {
     item: ProductInList,
@@ -9,17 +10,17 @@ type ProductCardProps = {
     addToFavoriteButton: React.ReactElement
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({item, addToCartButton, addToFavoriteButton}) => {
+const ProductCard: React.FC<ProductCardProps> = ({ item, addToCartButton, addToFavoriteButton }) => {
     const navigate = useNavigate();
 
-    return(
+    return (
         <div className={styles.DivCard}>
-            <div className={styles.DivFavoriteButton} onClick={() => navigate(PRODUCT_PATH)}>
+            <div className={styles.DivFavoriteButton}>
                 {
                     addToFavoriteButton
                 }
             </div>
-            <img className={styles.ImageCard} src={item.images !== undefined ? item.images[0].filepath : ""} alt="image product"/>
+            <img onClick={() => navigate(PRODUCT_PATH)} className={styles.ImageCard} src={item.images !== undefined ? item.images[0].filepath : NO_IMAGE} alt="image product" />
             <div className={styles.CardContent}>
                 <div className={styles.CardMainInfo}>
                     <p className={styles.CardTitle}>{item.name}</p>
