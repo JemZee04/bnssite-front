@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+import { PRODUCT_PATH } from "../../shared/utils/constants";
 import { ProductInList } from "../../store/beekneesApi";
 import styles from "./ProductCard.module.css";
 
@@ -8,9 +10,11 @@ type ProductCardProps = {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({item, addToCartButton, addToFavoriteButton}) => {
+    const navigate = useNavigate();
+
     return(
         <div className={styles.DivCard}>
-            <div className={styles.DivFavoriteButton}>
+            <div className={styles.DivFavoriteButton} onClick={() => navigate(PRODUCT_PATH)}>
                 {
                     addToFavoriteButton
                 }
