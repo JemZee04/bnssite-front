@@ -9,7 +9,7 @@ const Portal: React.FC<PortalProps> = ({children}) => {
         <>
             {
                 createPortal(
-                    <div>
+                    <div >
                         {children}
                     </div>, 
                     document.body
