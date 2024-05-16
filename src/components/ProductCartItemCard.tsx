@@ -16,6 +16,7 @@ export const ProductCartItemCard: React.FC<ProductCartItemProps> = ({ item }) =>
                 <Image
                     alt={item.images?.at(0)?.alt ?? 'Фото товара'}
                     src={item.images?.at(0)?.filepath ?? NO_IMAGE}
+                    fallback={NO_IMAGE}
                 />
             </Col>
             <Col span={12}>
