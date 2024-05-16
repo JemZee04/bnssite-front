@@ -1,4 +1,4 @@
-import { createAction, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import { createAction, createEntityAdapter, createSelector, createSlice } from "@reduxjs/toolkit";
 import { ProductInList } from "../../beekneesApi";
 import { RootState } from "../../store";
 interface FavoritesState {
@@ -34,4 +34,10 @@ const favoriteSlice = createSlice({
 })
 
 export const favoritesSelectors = favoritesEntitiyAdapter.getSelectors<RootState>(state => state.favoritesReducer);
+export const isFavoriteSelector = createSelector(
+    [
+        (state: RootState, itemWithId: Pick<ProductInList, 'id'>) => favoritesSelectors.selectById(state, itemWithId.id ?? '')
+    ],
+    (item) => item != null
+)
 export const favoritesReducer = favoriteSlice.reducer;

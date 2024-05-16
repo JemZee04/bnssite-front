@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom"
 import { FAVOURITES_PATH } from "../shared/utils/constants"
 import { useAppSelector } from "../store/store";
 import { favoritesSelectors } from "../store/slices/favorites";
-import { ShoppingCartOutlined } from "@ant-design/icons";
+import { HeartOutlined } from "@ant-design/icons";
 import { Badge, Button } from "antd";
 
 export const FavoritesButton: React.FC = () => {
@@ -15,7 +15,7 @@ export const FavoritesButton: React.FC = () => {
             <Badge count={favoritesTotal}>
                 <Button
                     iconPosition='end'
-                    icon={<ShoppingCartOutlined />}>
+                    icon={<HeartOutlined />}>
                     Избранное
                 </Button>
             </Badge>

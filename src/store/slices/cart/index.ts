@@ -1,4 +1,4 @@
-import { createAction, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import { createAction, createEntityAdapter, createSelector, createSlice } from "@reduxjs/toolkit";
 import { ProductInList } from "../../beekneesApi";
 import { ProductInCart } from "./types";
 import { RootState, useAppSelector } from "../../store";
@@ -46,4 +46,13 @@ const cartSlice = createSlice({
 
 
 export const cartSelectors = cartEntityAdapter.getSelectors<RootState>(state => state.cartReducer);
+
+
+export const isInCartSelector = createSelector(
+    [
+        (state: RootState, itemWithId: Pick<ProductInList, 'id'>) => cartSelectors.selectById(state, itemWithId.id ?? '')
+    ],
+    (item) => item != null
+);
+
 export const cartReducer = cartSlice.reducer;
