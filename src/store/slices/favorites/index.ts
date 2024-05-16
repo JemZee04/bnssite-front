@@ -4,11 +4,6 @@ import { RootState } from "../../store";
 interface FavoritesState {
     favorires: ProductInList[]
 }
-
-const initialState: FavoritesState = {
-    favorires: []
-};
-
 export type ProductInFavorites = ProductInList & { id: NonNullable<ProductInList['id']> };
 
 

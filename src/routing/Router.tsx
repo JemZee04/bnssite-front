@@ -83,6 +83,9 @@ const Router: React.FC = () => {
                         <Route path={CART_PATH} element={<ModalRoute prevLocation={previousLocation}>
                             <Cart />
                         </ModalRoute>} />
+                        <Route path={FAVOURITES_PATH} element={<ModalRoute prevLocation={previousLocation}>
+                            <Favourites />
+                        </ModalRoute>} />
                         <Route path={REGIST_PATH} element={<Portal children={<Regist />} />} />
                         <Route path={AUTH_PATH} element={<Portal children={<Auth />} />} />
                         {/* <Route path={ORDER_SUCCESS_PATH} element={<Portal children={

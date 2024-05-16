@@ -15,7 +15,7 @@ const cartEntityAdapter = createEntityAdapter({
 
 
 const cartSlice = createSlice({
-    name: 'favorites',
+    name: 'cart',
     initialState: cartEntityAdapter.getInitialState(),
     reducers: {},
     extraReducers: (builder) => {
