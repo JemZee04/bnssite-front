@@ -51,7 +51,7 @@ const Main: React.FC = () => {
                     <List
                         grid={{ gutter: 16, column: 4 }}
                         itemLayout='horizontal'
-                        dataSource={categories}
+                        dataSource={data?.headerMenu}
                         renderItem={(item) => (
                             // <List.Item>
                             <Card
@@ -60,7 +60,7 @@ const Main: React.FC = () => {
                                     maxHeight: 500,
                                     maxWidth: 220
                                 }}
-                                title={item}
+                                title={item.text}
                             />
                             // </List.Item>
 
