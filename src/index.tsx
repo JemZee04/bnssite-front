@@ -7,21 +7,49 @@ import Router from './routing/Router';
 import { Provider } from 'react-redux';
 import { persistor, store } from './store/store';
 import { PersistGate } from 'redux-persist/integration/react';
-import { Spin } from 'antd';
+import { ConfigProvider, Spin } from 'antd';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <Provider store={store}>
-    <PersistGate persistor={persistor} loading={<Spin></Spin>}>
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
-    </PersistGate>
-  </Provider>
-
-
+  <ConfigProvider
+    theme={{
+      components:{
+        Button:{
+          borderRadius: 20,
+          primaryColor: '#BDFF2E',
+          defaultBg: '#BDFF2E',
+          defaultBorderColor: '#BDFF2E',
+          groupBorderColor: '#BDFF2E',
+          defaultHoverColor: '#383838',
+          defaultHoverBorderColor: '#aae62a',
+          defaultHoverBg: '#aae62a',
+          defaultActiveColor: '#383838',
+          defaultActiveBorderColor: '#91c424',
+          defaultActiveBg: '#91c424',
+          paddingInline: 10,
+          paddingBlock: 5,
+          fontWeight: 700,
+          defaultShadow: '0px 4px 4px 0px #0000000D',
+          defaultColor: '#424242',
+          fontFamily: 'Source Sans 3'
+        }
+      },
+      token:{
+        fontFamily: 'Source Sans 3',
+        colorPrimaryBg: '#BDFF2E'
+      }
+    }}
+  >
+    <Provider store={store}>
+      <PersistGate persistor={persistor} loading={<Spin></Spin>}>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
+  </ConfigProvider>
 );
 
 // If you want your app to work offline and load faster, you can change
