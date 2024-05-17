@@ -39,7 +39,7 @@ const Main: React.FC = () => {
                     backgroundImage: `url(${HOME_BACKGROUND})`,
                     gap: 50
                 }}>
-                    <img src={WOMAN_FILTER} className={styles.MainCategoriesImage} />
+                    <img src={WOMAN_FILTER} onClick={onTapWoman} className={styles.MainCategoriesImage} />
                     <img src={MAN_FILTER} onClick={onTapMan} className={styles.MainCategoriesImage} />
 
                 </section>
@@ -51,7 +51,7 @@ const Main: React.FC = () => {
                         grid={{ gutter: 16, column: 4 }}
                         loading={isLoading}
                         itemLayout='horizontal'
-                        dataSource={data.topShops.slice(0, 4)  ?? []}
+                        dataSource={data.topShops.slice(0, 4) ?? []}
                         renderItem={(item) => (
                             <List.Item id={item.id}>
                                 <BrandCard
