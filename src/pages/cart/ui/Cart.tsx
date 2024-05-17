@@ -2,10 +2,16 @@ import { List } from "antd";
 import { cartSelectors } from "../../../store/slices/cart";
 import { useAppSelector } from "../../../store/store";
 import { ProductCartItemCard } from "../../../components/ProductCartItemCard";
+import { useMemo } from "react";
 
 const Cart: React.FC = () => {
 
     const products = useAppSelector(cartSelectors.selectAll);
+
+    const totalCount = useMemo(
+        () => products.map(p => p.count).reduce((prev, curr) => prev + curr, 0),
+        [products]
+    )
 
     return (
         <div style={{
@@ -14,7 +20,7 @@ const Cart: React.FC = () => {
             overflowX: 'hidden'
         }}>
             <h1>Корзина</h1>
-            <div style={{ marginBottom: 20 }}>{`${products.length} товаров`}</div>
+            <div style={{ marginBottom: 20 }}>{`${totalCount} товаров`}</div>
 
             <List
                 itemLayout='vertical'

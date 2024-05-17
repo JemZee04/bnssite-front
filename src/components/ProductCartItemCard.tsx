@@ -16,16 +16,16 @@ export const ProductCartItemCard: React.FC<ProductCartItemProps> = ({ item }) =>
 
     return (
         <Row gutter={[10, 0]}>
-            <Col span={12} style={{padding: 10}}>
+            <Col span={12} style={{ padding: 10 }}>
                 <Image
-                    onClick={() => navigate(`${PRODUCT_PATH}/:${item.id}`)}
-                    preview = {false}
+                    onClick={() => navigate(`${PRODUCT_PATH}/${item.id}`)}
+                    preview={false}
                     alt={item.images?.at(0)?.alt ?? 'Фото товара'}
                     src={item.images?.at(0)?.filepath ?? NO_IMAGE}
                     fallback={NO_IMAGE}
                 />
             </Col>
-            <Col span={12} style={{padding: 10}}>
+            <Col span={12} style={{ padding: 10 }}>
                 {/* <Space direction='vertical' size={10}> */}
                 <Row>
                     <Col flex='auto'>

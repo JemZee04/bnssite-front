@@ -63,7 +63,7 @@ const Router: React.FC = () => {
                         <Route path={`${CATALOG_PATH}${CATEGORY_PATH}${FILTERS_PATH}`} element={<Catalog />} />
                         <Route path={`${CATALOG_PATH}${SEARCH_PATH}${CATEGORY_PATH}${FILTERS_PATH}`} element={<Catalog />} />
                     </Route>
-                    <Route path={`${PRODUCT_PATH}/:productId/:size`} element={<Product />} />
+                    <Route path={`${PRODUCT_PATH}/:productId`} element={<Product />} />
                     {/* <Route path={PROFILE_PATH} element={<ProfileMain />}>
                         <Route path={PROFILE_PATH} element={<Profile />} />
                         <Route path={ORDERS_PATH} element={<Orders />} />

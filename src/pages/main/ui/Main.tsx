@@ -4,13 +4,14 @@ import HOME_BACKGROUND from '../../../assets/images/home_background.png';
 import { BrandCard } from "../../../widgets/brands/BrandCard";
 import { Card, Col, Flex, List, Row, Space, Spin } from "antd";
 import { useGetMainPageQuery } from "../../../store/beekneesApi";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import ProductCard from "../../../components/productCard/ProducrCard";
 import { AddToCartButton } from "../../../components/AddToCartButton";
 import { AddToFavoritesButton } from "../../../components/AddToFavoritesButton";
 import WOMAN_FILTER from '../../../assets/images/woman.png';
 import MAN_FILTER from '../../../assets/images/man.png';
 import styles from './Main.module.css';
+import { CATALOG_PATH, CATEGORY_PATH } from "../../../shared/utils/constants";
 
 const Main: React.FC = () => {
 
@@ -18,6 +19,14 @@ const Main: React.FC = () => {
     const { isLoading, data } = useGetMainPageQuery();
 
     const categories = useMemo(() => ['Футболки', 'Штаны', 'Обувь', 'Шапки'], [])
+
+    const onTapMan = () => {
+        navigate(`${CATALOG_PATH}?gender=man`);
+    }
+
+    const onTapWoman = () => {
+        navigate(`${CATALOG_PATH}?gender=woman`);
+    }
 
     return (isLoading ? <Spin /> :
         <>
@@ -30,19 +39,25 @@ const Main: React.FC = () => {
                     backgroundImage: `url(${HOME_BACKGROUND})`,
                     gap: 50
                 }}>
-                    <img src={WOMAN_FILTER}  className={styles.MainCategoriesImage} />
-                    <img src={MAN_FILTER}   className={styles.MainCategoriesImage}/>
+                    <img src={WOMAN_FILTER} className={styles.MainCategoriesImage} />
+                    <img src={MAN_FILTER} onClick={onTapMan} className={styles.MainCategoriesImage} />
 
                 </section>
-                {data?.shopList && <section className={styles.MainSection}>
+                <section className={styles.MainSection}>
+                    <h2 className={styles.MainSectionTitle}>Популярные бренды</h2>
+                </section>
+                {data?.topShops && <section className={styles.MainSection}>
                     <List
                         grid={{ gutter: 16, column: 4 }}
                         loading={isLoading}
                         itemLayout='horizontal'
-                        dataSource={data.shopList}
+                        dataSource={data.topShops.slice(0, 4)  ?? []}
                         renderItem={(item) => (
                             <List.Item id={item.id}>
-                                <BrandCard image={item.logo_image?.filepath ?? ''} loading></BrandCard>
+                                <BrandCard
+                                    image={item.logo_image?.filepath ?? ''}
+                                    title={item.name ?? ''}
+                                />
                             </List.Item>
 
                         )}

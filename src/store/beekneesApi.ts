@@ -264,7 +264,7 @@ export type ProductInList = {
 };
 export type ГлавнаяСтраница = {
   headerMenu?: MenuItem[];
-  shopList?: ShopInList[];
+  topShops?: ShopInList[];
   saleProductList?: ProductInList[];
   popularProductList?: ProductInList[];
 };

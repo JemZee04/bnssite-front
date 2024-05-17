@@ -50,7 +50,10 @@ const cartSlice = createSlice({
 
 
 export const cartSelectors = cartEntityAdapter.getSelectors<RootState>(state => state.cartReducer);
-
+export const selectTotalCount = createSelector(
+    [(state: RootState) => cartSelectors.selectAll(state)],
+    (items) => items.map(i => i.count).reduce((prev, curr) => prev + curr, 0)
+)
 
 export const isInCartSelector = createSelector(
     [
