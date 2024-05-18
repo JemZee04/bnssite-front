@@ -17,6 +17,7 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/catalog-page`,
         params: {
+          gender: queryArg.gender,
           categories: queryArg.categories,
           sizes: queryArg.sizes,
           colors: queryArg.colors,
@@ -62,7 +63,7 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/user/sign-in`,
         method: "POST",
-        body: queryArg.userSigninBody,
+        body: queryArg.body,
       }),
     }),
     postUserSignUp: build.mutation<
@@ -82,7 +83,7 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/user/refresh`,
         method: "POST",
-        body: queryArg.userRefreshBody,
+        body: queryArg.body,
       }),
     }),
     getProductByProductIdReviews: build.query<
@@ -122,6 +123,8 @@ export type GetMainPageApiArg = void;
 export type GetCatalogPageApiResponse =
   /** status 200 Метод успешно отработал */ СтраницаКаталогаТоваров;
 export type GetCatalogPageApiArg = {
+  /** Значение для фильтрации по категориям */
+  gender?: string;
   /** Значение для фильтрации по категориям */
   categories?: string[];
   /** Значение для фильтрации по размерам */
@@ -165,10 +168,16 @@ export type GetUserByUserIdCartApiArg = {
   "user-id": Uuid;
 };
 export type PostUserSignInApiResponse =
-  /** status 200 Метод успешно отработал */ InlineResponse200;
+  /** status 200 Метод успешно отработал */ {
+    accessToken?: string;
+    refreshToken?: string;
+  };
 export type PostUserSignInApiArg = {
   /** Данные элемента страницы */
-  userSigninBody: UserSigninBody;
+  body: {
+    phone?: string;
+    password?: string;
+  };
 };
 export type PostUserSignUpApiResponse =
   /** status 200 Метод успешно отработал */ Uuid;
@@ -177,10 +186,16 @@ export type PostUserSignUpApiArg = {
   userSignIn: UserSignIn;
 };
 export type PostUserRefreshApiResponse =
-  /** status 200 Метод успешно отработал */ UserRefreshBody;
+  /** status 200 Метод успешно отработал */ {
+    accessToken?: string;
+    refreshToken?: string;
+  };
 export type PostUserRefreshApiArg = {
   /** Данные элемента страницы */
-  userRefreshBody: UserRefreshBody;
+  body: {
+    accessToken?: string;
+    refreshToken?: string;
+  };
 };
 export type GetProductByProductIdReviewsApiResponse =
   /** status 200 Метод успешно отработал */ Review[];
@@ -195,7 +210,10 @@ export type GetShopByShopCodeReviewsApiArg = {
   "shop-code": Sluggable;
 };
 export type PostUserByUserIdProductandProductIdReviewsApiResponse =
-  /** status 201 Метод успешно отработал */ InlineResponse201;
+  /** status 201 Метод успешно отработал */ {
+    /** Идентификатор отзыва */
+    reviewId: string;
+  };
 export type PostUserByUserIdProductandProductIdReviewsApiArg = {
   /** ID страницы */
   "user-id": Uuid;
@@ -264,7 +282,7 @@ export type ProductInList = {
 };
 export type ГлавнаяСтраница = {
   headerMenu?: MenuItem[];
-  topShops?: ShopInList[];
+  shopList?: ShopInList[];
   saleProductList?: ProductInList[];
   popularProductList?: ProductInList[];
 };
@@ -359,22 +377,10 @@ export type Cart = {
   quantity?: number;
   totalPrice?: number;
 };
-export type InlineResponse200 = {
-  accessToken?: string;
-  refreshToken?: string;
-};
-export type UserSigninBody = {
-  phone?: string;
-  password?: string;
-};
 export type UserSignIn = {
   phone?: string;
   name?: string;
   password?: string;
-};
-export type UserRefreshBody = {
-  accessToken?: string;
-  refreshToken?: string;
 };
 export type UserShort = {
   id?: Uuid;
@@ -386,10 +392,6 @@ export type Review = {
   date?: string;
   text?: string;
   user?: UserShort;
-};
-export type InlineResponse201 = {
-  /** Идентификатор отзыва */
-  reviewId: string;
 };
 export const {
   useGetHealthCheckQuery,

@@ -46,12 +46,12 @@ const Main: React.FC = () => {
                 <section className={styles.MainSection}>
                     <h2 className={styles.MainSectionTitle}>Популярные бренды</h2>
                 </section>
-                {data?.topShops && <section className={styles.MainSection}>
+                {data?.shopList && <section className={styles.MainSection}>
                     <List
                         grid={{ gutter: 16, column: 4 }}
                         loading={isLoading}
                         itemLayout='horizontal'
-                        dataSource={data.topShops.slice(0, 4) ?? []}
+                        dataSource={data.shopList.slice(0, 4) ?? []}
                         renderItem={(item) => (
                             <List.Item id={item.id}>
                                 <BrandCard
