@@ -1,0 +1,11 @@
+.DivButton{
+    width: 365px;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+.DivButton button{
+    width: 100%;
+    border-radius: 30px;
+    font-size: 20px;
+}

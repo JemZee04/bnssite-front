@@ -1,0 +1,17 @@
+.Div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.Title{
+    font-family: 'Source Sans 3';
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.Content{
+    font-family: 'Source Sans 3';
+    font-size: 24px;
+    font-weight: 400;
+}
