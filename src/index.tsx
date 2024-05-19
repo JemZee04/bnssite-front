@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { persistor, store } from './store/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ConfigProvider, Spin } from 'antd';
+import { YMaps } from '@pbe/react-yandex-maps';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,8 +16,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <ConfigProvider
     theme={{
-      components:{
-        Button:{
+      components: {
+        Button: {
           borderRadius: 20,
           primaryColor: '#BDFF2E',
           defaultBg: '#BDFF2E',
@@ -36,7 +37,7 @@ root.render(
           fontFamily: 'Source Sans 3'
         }
       },
-      token:{
+      token: {
         fontFamily: 'Source Sans 3',
         colorPrimaryBg: '#BDFF2E'
       }
@@ -45,7 +46,11 @@ root.render(
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={<Spin></Spin>}>
         <BrowserRouter>
-          <Router />
+          <YMaps query={{
+            apikey: '29e64032-86a4-4346-97ad-7f1d1eec4ae2',
+          }}>
+            <Router />
+          </YMaps>
         </BrowserRouter>
       </PersistGate>
     </Provider>

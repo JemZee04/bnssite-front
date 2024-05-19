@@ -1,4 +1,3 @@
-import { Button } from "antd";
 import styles from "./OrderInfo.module.css";
 
 type OrderInfoProps = {
@@ -12,10 +11,10 @@ const OrderInfo: React.FC<OrderInfoProps> = ({totalCount, totalCost, deliveryCos
         <div className={styles.Div}>
             <p className={styles.Title}>Ваш заказ:</p>
             <div>
-                <p className={styles.Content}>{`Кол-во товаров: ${totalCount} шт.`}</p>
-                <p className={styles.Content}>{`Доставка: ${deliveryCost === 0 ? "бесплатно" : deliveryCost + " руб."}`}</p>
+                <p className={styles.Content}>{`Кол-во товаров: ${totalCount.toFixed(2)} шт.`}</p>
+                <p className={styles.Content}>{`Доставка: ${deliveryCost === 0 ? "бесплатно" : deliveryCost.toFixed(2) + " руб."}`}</p>
             </div>
-            <p className={styles.Title}>{`Итого: ${totalCost} руб.`}</p>
+            <p className={styles.Title}>{`Итого: ${(totalCost + deliveryCost).toFixed(2)} руб.`}</p>
         </div>
     )
 }
