@@ -2,9 +2,9 @@ import { UserOutlined } from "@ant-design/icons"
 import { Button, Col, Menu, MenuProps, Row, Space } from "antd"
 import { CartButton } from "../../components/CartButton"
 import { FavoritesButton } from "../../components/FavoritesButton"
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useMemo } from "react";
-import { CATALOG_PATH } from "../../shared/utils/constants";
+import { CATALOG_PATH, PROFILE_PATH } from "../../shared/utils/constants";
 
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -13,6 +13,7 @@ type MenuItem = Required<MenuProps>['items'][number];
 export const AppMenu: React.FC = () => {
 
     const [params, setSearchParams] = useSearchParams();
+    const location = useLocation();
 
     const headerMenu = useMemo(() => params.get('gender')
         ? [
@@ -28,6 +29,7 @@ export const AppMenu: React.FC = () => {
         : [],
         [params])
 
+
     return <>
         <Row justify='space-between'>
             <Col flex={'auto'}>
@@ -42,7 +44,9 @@ export const AppMenu: React.FC = () => {
                 <Space size={10}>
                     <CartButton />
                     <FavoritesButton />
-                    <Button iconPosition='end' icon={<UserOutlined />}>Профиль</Button>
+                    <Link to={PROFILE_PATH} state={{ previousLocation: location }}>
+                        <Button iconPosition='end' icon={<UserOutlined />}>Профиль</Button>
+                    </Link>
                 </Space>
             </Col>
         </Row>

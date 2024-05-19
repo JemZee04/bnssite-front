@@ -1,7 +1,6 @@
 export const HOME_PATH: string = "/";
 export const CATALOG_PATH: string = "/catalog";
 export const PRODUCT_PATH = "/product/:id";
-export const PROFILE_PATH = "/profile";
 export const ORDERS_PATH = "/profile/orders";
 export const CART_PATH = "/cart";
 export const FAVOURITES_PATH = "/favourites";
@@ -11,8 +10,8 @@ export const CONTACTS_PATH = "/contacts";
 export const HELP_PATH = "/help";
 export const POLITICS_PATH = "/politics";
 
-export const REGIST_PATH = "/regist";
-export const AUTH_PATH = "/auth";
+// export const REGIST_PATH = "/regist";
+// export const AUTH_PATH = "/auth";
 export const RECOVERY_PASSWORD_PATH = "/recovery_password";
 export const EMAIL_PATH = "/email";
 export const CITIES_PATH = "/cities";
@@ -25,3 +24,8 @@ export const ORDER_CALL_PATH = "/order_call";
 export const SEARCH_PATH = "/search/q?=:query";
 export const CATEGORY_PATH = "/category?=:category";
 export const FILTERS_PATH = "/filters?=:filters";
+
+
+export const PROFILE_PATH = '/profile';
+export const AUTH_PATH = 'auth';
+export const PERSON_PATH = 'person';

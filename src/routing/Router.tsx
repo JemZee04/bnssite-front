@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router";
+import { Outlet, Route, Routes, useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
 import AppLayout from "../App";
 import Cart from "../pages/cart/ui/Cart";
@@ -28,14 +28,14 @@ import {
     ORDER_CALL_PATH,
     ORDER_SUCCESS_PATH,
     PAYMENT_DELIVERY_PATH,
+    PERSON_PATH,
     POLITICS_PATH,
     PRODUCT_PATH,
     PROFILE_PATH,
     RECOVERY_PASSWORD_PATH,
-    REGIST_PATH,
     SEARCH_PATH
 } from "../shared/utils/constants";
-import Auth from "../widgets/auth/ui/Auth";
+// import Auth from "../widgets/auth/ui/Auth";
 import ChangePassword from "../widgets/changePassword/ui/ChangePassword";
 import Cities from "../widgets/cities/ui/Cities";
 import DeleteProfile from "../widgets/deleteProfile/ui/deleteProfile";
@@ -43,6 +43,8 @@ import FastBuy from "../widgets/fastBuy/ui/FastBuy";
 import RecoveryPassword from "../widgets/recoveryPassword/ui/RecoveryPassword";
 import Regist from "../widgets/regist/ui/Regist";
 import { ModalRoute } from "../shared/ui/modal/ModalRoute";
+import { AuthGuard } from "./AuthGuard";
+import { ProfilePage } from "../pages/profile/ui/ProfilePage";
 
 const Router: React.FC = () => {
     const location = useLocation();
@@ -86,8 +88,13 @@ const Router: React.FC = () => {
                         <Route path={FAVOURITES_PATH} element={<ModalRoute prevLocation={previousLocation}>
                             <Favourites />
                         </ModalRoute>} />
-                        <Route path={REGIST_PATH} element={<Portal children={<Regist />} />} />
-                        <Route path={AUTH_PATH} element={<Portal children={<Auth />} />} />
+                        <Route path={PROFILE_PATH} element={<ModalRoute prevLocation={previousLocation}>
+                            <ProfilePage />
+                        </ModalRoute>
+                        }
+                        />
+                        {/* <Route path={REGIST_PATH} element={<Portal children={<Regist />} />} /> */}
+                        {/* <Route path={AUTH_PATH} element={<Portal children={<Auth />} />} /> */}
                         {/* <Route path={ORDER_SUCCESS_PATH} element={<Portal children={
                                 <Modal title="Ваш заказ принят"
                                     content="Мы свяжемся с вами в кротчайшее время"

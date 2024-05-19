@@ -7,6 +7,7 @@ import persistReducer from "redux-persist/es/persistReducer";
 import { favoritesReducer } from "./slices/favorites";
 import persistStore from "redux-persist/es/persistStore";
 import { cartReducer } from "./slices/cart";
+import { credentialReducer } from "./slices/credential/credentialSlice";
 
 const persistConfig: PersistConfig<RootState> = {
     key: 'root',
@@ -17,6 +18,7 @@ const persistConfig: PersistConfig<RootState> = {
 const rootReducer = combineReducers({
     favoritesReducer,
     cartReducer,
+    credentialReducer,
     [beekneesApi.reducerPath]: beekneesApi.reducer
 });
 

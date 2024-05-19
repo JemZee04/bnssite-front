@@ -1,23 +1,24 @@
-import { Space, Button } from "antd";
-import Input from "rc-input";
-import { useState } from "react";
-import { registrationThunk } from "../../../store/slices/credential/asyncThunks";
-import { useAppDispatch } from "../../../store/store";
+import { Button, Input, Space } from "antd";
+import React, { useEffect, useState } from "react";
 
-const Regist: React.FC = () => {
+import { useNavigate } from "react-router-dom";
+import { loginThunk } from "../../store/slices/credential/asyncThunks";
+import { useAppDispatch } from "../../store/store";
+
+
+
+export const LoginPage: React.FC = () => {
+
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
 
     const dispatch = useAppDispatch();
 
     const onLogin = () => {
-        dispatch(registrationThunk({
-
-            userSignIn: {
+        dispatch(loginThunk({
+            body: {
                 phone: phone,
-                password: password,
-                name: name
+                password: password
             }
         }))
     }
@@ -28,12 +29,9 @@ const Regist: React.FC = () => {
 
     return (
         <Space size={20} direction='vertical' style={{ width: '100%' }}>
-            <Input placeholder="Имя" value={name} onChange={buildHandleChange(setName)} />
             <Input placeholder='Номер телефона' value={phone} onChange={buildHandleChange(setPhone)} />
             <Input placeholder="Пароль" value={password} onChange={buildHandleChange(setPassword)} />
-            <Button onClick={onLogin}>Зарегестрироваться</Button>
+            <Button onClick={onLogin}>Войти</Button>
         </Space>
     );
 }
-
-export default Regist;
