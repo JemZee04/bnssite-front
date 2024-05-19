@@ -1,5 +1,4 @@
-import { Space, Button } from "antd";
-import Input from "rc-input";
+import { Space, Button, Input } from "antd";
 import { useState } from "react";
 import { registrationThunk } from "../../../store/slices/credential/asyncThunks";
 import { useAppDispatch } from "../../../store/store";

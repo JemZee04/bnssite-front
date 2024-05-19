@@ -1,10 +1,14 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Button, Col, Layout, Row, Typography } from 'antd';
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import { AppMenu } from "./widgets/menu/Menu";
+import { HOME_PATH } from "./shared/utils/constants";
 
 
 const AppLayout: React.FC = () => {
+
+  const navigate = useNavigate();
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Header style={{
@@ -20,10 +24,11 @@ const AppLayout: React.FC = () => {
             <BurgerMenu />
           </Col> */}
           <Col>
-            <Typography.Title level={1} style={{
+            <Typography.Title level={1} onClick={() => navigate(HOME_PATH)} style={{
               color: 'greenyellow',
               // letterSpacing: '90px',
               textAlign: 'center',
+              cursor: 'pointer',
               margin: 0
             }}>BEEKNEES</Typography.Title>
           </Col>
