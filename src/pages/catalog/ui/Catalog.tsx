@@ -6,6 +6,7 @@ import styles from "./Catalog.module.css";
 import { AddToCartButton } from "../../../components/AddToCartButton";
 import { CatalogFilter } from "./CatalogFilter";
 import { useMemo } from "react";
+import { removeExistingParamsArrayValue } from "../../../routing/searchParamsHelper";
 
 export type FilterType = 'add' | 'delete' | 'set';
 
@@ -26,14 +27,14 @@ const Catalog: React.FC = () => {
         sort: '',
         gender: params.get('gender') ?? undefined,
         categories: params.getAll('category'),
-        colors: params.getAll('colors'),
-        sizes: params.getAll('sizes')
+        colors: params.get('colors')?.split('%'),
+        sizes: params.get('sizes')?.split('%')
     });
 
     const selectedFilters = useMemo<SelectedFiltersTypes>(() => ({
-        sizes: params.getAll('sizes'),
+        sizes: params.get('sizes')?.split('%'),
         categories: params.get('category') ?? undefined,
-        colors: params.getAll('colors'),
+        colors: params.get('colors')?.split('%'),
         brands: params.getAll('brands')
     }), [params])
 
@@ -49,22 +50,17 @@ const Catalog: React.FC = () => {
                 break;
             case 'add': setSearchParams(prev => {
                 const tempPrev = prev;
-                tempPrev.append(name, value);
+                const prevParam = prev.get(name);
+                if (prevParam) tempPrev.set(name, `${prevParam}%${value}`);
+                else tempPrev.set(name, value);
                 return tempPrev;
             });
                 break;
-            case 'delete': setSearchParams(prev => {
-                const tempPrev = prev;
-                const uParams = prev.getAll(name).filter(v => v != value);
-
-                console.log('U PARAMS', uParams);
-            
-                tempPrev.delete(name);
-                console.log('TEMP NAME = ', tempPrev.getAll(name) );
-                
-                for (const uParam of uParams) tempPrev.append(name, uParam);
-                return tempPrev;
-            });
+            case 'delete':
+                const currParams = params.get(name);
+                if (!currParams || currParams?.split('%').length == 1) params.delete(name);
+                else params.set(name, currParams.split('%').filter(v => v != value).join('%'));
+                setSearchParams(params);
                 break;
         }
     }

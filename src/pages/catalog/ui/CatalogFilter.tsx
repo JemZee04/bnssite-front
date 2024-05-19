@@ -40,7 +40,7 @@ export const CatalogFilter: React.FC<CatalogFilterProps> = ({ filters, onSelectF
                 key: 'sizes',
                 onClick: (info: any) => {
                     if (selectedFilters?.sizes?.find(size => size == info.key)) onSelectFilter(['sizes', info.key], 'delete');
-                    onSelectFilter(['sizes', info.key], 'add');
+                    else onSelectFilter(['sizes', info.key], 'add');
                 },
                 children: filters.sizes?.map(size => ({ label: size.name, key: size.id }))
             },
@@ -48,14 +48,13 @@ export const CatalogFilter: React.FC<CatalogFilterProps> = ({ filters, onSelectF
                 label: 'Цвета',
                 key: 'colors',
                 onClick: (info) => {
-                    console.log();
-                    
                     if (selectedFilters?.colors?.find(color => color == info.key)) {
-                        console.log('DELETE');
-                        
                         onSelectFilter(['colors', info.key], 'delete');
                     }
-                    onSelectFilter(['colors', info.key], 'add');
+                    else {
+                        onSelectFilter(['colors', info.key], 'add');
+                    }
+
                 },
                 children: filters.colors?.map(color => ({ label: color.name, key: color.id }))
             }
