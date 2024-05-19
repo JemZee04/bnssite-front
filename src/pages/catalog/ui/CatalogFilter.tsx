@@ -48,15 +48,22 @@ export const CatalogFilter: React.FC<CatalogFilterProps> = ({ filters, onSelectF
                 label: 'Цвета',
                 key: 'colors',
                 onClick: (info) => {
-                    if (selectedFilters?.colors?.find(color => color == info.key)) {
-                        onSelectFilter(['colors', info.key], 'delete');
-                    }
-                    else {
-                        onSelectFilter(['colors', info.key], 'add');
-                    }
-
+                    if (selectedFilters?.colors?.find(color => color == info.key)) onSelectFilter(['colors', info.key], 'delete');
+                    else onSelectFilter(['colors', info.key], 'add');
                 },
                 children: filters.colors?.map(color => ({ label: color.name, key: color.id }))
+            },
+            {
+                label: 'Бренды',
+                key: 'brands',
+                onClick: (info) => {
+                    if (selectedFilters?.colors?.find(color => color == info.key)) onSelectFilter(['brands', info.key], 'delete');
+                    else onSelectFilter(['brands', info.key], 'add');
+                },
+                children: filters.shops?.map(shop => ({
+                    label: shop.name,
+                    key: shop.id
+                }))
             }
         ]
         : [],
@@ -66,7 +73,9 @@ export const CatalogFilter: React.FC<CatalogFilterProps> = ({ filters, onSelectF
     return filters && <Menu
         selectedKeys={[
             ...selectedFilters?.colors ?? [],
-            ...selectedFilters?.sizes ?? []
+            ...selectedFilters?.sizes ?? [],
+            ...selectedFilters?.brands ?? [],
+            ...(selectedFilters?.categories ? [selectedFilters.categories] : [])
         ]}
         mode='horizontal'
         items={menuItems}

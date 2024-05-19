@@ -6,7 +6,6 @@ import styles from "./Catalog.module.css";
 import { AddToCartButton } from "../../../components/AddToCartButton";
 import { CatalogFilter } from "./CatalogFilter";
 import { useMemo } from "react";
-import { removeExistingParamsArrayValue } from "../../../routing/searchParamsHelper";
 
 export type FilterType = 'add' | 'delete' | 'set';
 
@@ -28,14 +27,16 @@ const Catalog: React.FC = () => {
         gender: params.get('gender') ?? undefined,
         categories: params.getAll('category'),
         colors: params.get('colors')?.split('%'),
-        sizes: params.get('sizes')?.split('%')
+        sizes: params.get('sizes')?.split('%'),
+        shops: params.get('brands')?.split('%')
+        
     });
 
     const selectedFilters = useMemo<SelectedFiltersTypes>(() => ({
         sizes: params.get('sizes')?.split('%'),
         categories: params.get('category') ?? undefined,
         colors: params.get('colors')?.split('%'),
-        brands: params.getAll('brands')
+        brands: params.get('brands')?.split('%')
     }), [params])
 
     const onSelectFilter = (filters: [string, string], type: FilterType) => {
