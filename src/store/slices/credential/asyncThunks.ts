@@ -25,6 +25,11 @@ export const registrationThunk = createAsyncThunk(
                 phone: args.userSignIn.phone,
                 name: args.userSignIn.name,
                 password: args.userSignIn.password 
+            },
+            {
+                headers: {
+                    'Accept': '*',
+                }
             }
         )).data
     }
