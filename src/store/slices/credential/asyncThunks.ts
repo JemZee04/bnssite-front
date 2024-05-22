@@ -21,7 +21,11 @@ export const registrationThunk = createAsyncThunk(
     async (args: PostUserSignUpApiArg) => {
         return (await axios.post<PostUserSignUpApiResponse>(
             'http://localhost:7070/api/v1/bns/user/sign-up',
-            args.userSignIn,
+            {
+                phone: args.userSignIn.phone,
+                name: args.userSignIn.name,
+                password: args.userSignIn.password 
+            }
         )).data
     }
 )
