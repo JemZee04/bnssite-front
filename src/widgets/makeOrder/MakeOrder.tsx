@@ -2,11 +2,12 @@ import OrderInfo from "../orderInfo/OrderInfo";
 import { Map } from '@pbe/react-yandex-maps';
 import styles from "./MakeOrder.module.css";
 import PlaceMap from "../../components/placeMap/PlaceMap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "antd";
-import { useAppDispatch } from "../../store/store";
-import { deleteAllFromCart } from "../../store/slices/cart";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { cartSelectors, deleteAllFromCart } from "../../store/slices/cart";
 import { useNavigate } from "react-router-dom";
+import { usePostUserOrdersUsersByUserIdMutation } from "../../store/beekneesApi";
 
 
 type MakeOrderProps = {
@@ -17,14 +18,38 @@ type MakeOrderProps = {
 
 const MakeOrder: React.FC<MakeOrderProps> = ({totalCost, deliveryCost, totalCount}) => {
     const [places, setPlaces] = useState<boolean[]>(new Array(10).fill(false));
+    const products = useAppSelector(cartSelectors.selectAll);
+    const userId = useAppSelector(state => state.credentialReducer.profile?.id);
+    const userPhone = useAppSelector(state => state.credentialReducer.profile?.phone);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const [createOrder, {data, isLoading, isError}] = usePostUserOrdersUsersByUserIdMutation();
 
     const clickPlace = (i: number) => {
         setPlaces(places.map((_, index) => i === index ? true : false));
     }
 
+    useEffect(() => {
+        console.log(products);
+        console.log(userId);
+        console.log(userPhone);
+    }, [])
+
     const clickHandker = () => {
+        createOrder({"user-id": userId ?? "", createOrder: {
+            userId: userId,
+            totalPrice: totalCost,
+            status: "Заказ оформлен",
+            productItems: products.map(item => {
+                return {
+                    productItemId: item.id,
+                    sizeId: (item.sizes !== undefined && item.sizes.length !== 0) ? item.sizes[0].id : "51ff12e3-3fe0-4193-a374-3911d9a7a693",
+                    colorId: (item.colors !== undefined && item.colors.length) ? item.colors[0].id : "64f9cb44-4cee-445d-a269-0c20b4d512e4",
+                    shopId: item.shop?.id,
+                    quantity: item.count
+                }
+            })
+        }})
         dispatch(deleteAllFromCart());
         navigate(-1);
     }

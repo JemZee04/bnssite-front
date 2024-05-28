@@ -28,6 +28,9 @@ const Main: React.FC = () => {
         navigate(`${CATALOG_PATH}?gender=woman`);
     }
 
+    console.log(data);
+    
+
     return (isLoading ? <Spin /> :
         <>
             <Space size={20} direction='vertical' style={{ width: '100%' }}>

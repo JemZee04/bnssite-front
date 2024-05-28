@@ -1,7 +1,7 @@
 import { useParams, useSearchParams } from "react-router-dom";
 import { AddToFavoritesButton } from "../../../components/AddToFavoritesButton";
 import ProductCard from "../../../components/productCard/ProducrCard";
-import { FiltersAndSorting, useGetCatalogPageQuery } from "../../../store/beekneesApi";
+import {  useGetCatalogPageQuery } from "../../../store/beekneesApi";
 import styles from "./Catalog.module.css";
 import { AddToCartButton } from "../../../components/AddToCartButton";
 import { CatalogFilter } from "./CatalogFilter";

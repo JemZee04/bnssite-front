@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { emptySplitApi as api } from "./emptyApi";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -8,7 +9,9 @@ const injectedRtkApi = api.injectEndpoints({
       query: () => ({ url: `/health/check` }),
     }),
     getMainPage: build.query<GetMainPageApiResponse, GetMainPageApiArg>({
-      query: () => ({ url: `/main-page` }),
+      query: () => (
+        { url: `/main-page` }
+        ),
     }),
     getCatalogPage: build.query<
       GetCatalogPageApiResponse,
@@ -110,6 +113,74 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.review,
       }),
     }),
+    postShopSignUp: build.mutation<
+      PostShopSignUpApiResponse,
+      PostShopSignUpApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/shop/sign-up`,
+        method: "POST",
+        body: queryArg.body,
+      }),
+    }),
+    postShopByShopIdProducts: build.mutation<
+      PostShopByShopIdProductsApiResponse,
+      PostShopByShopIdProductsApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/shop/${queryArg["shop-id"]}/products`,
+        method: "POST",
+        body: queryArg.body,
+      }),
+    }),
+    postShopSignIn: build.mutation<
+      PostShopSignInApiResponse,
+      PostShopSignInApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/shop/sign-in`,
+        method: "POST",
+        body: queryArg.body,
+      }),
+    }),
+    getUserOrdersUsersByUserId: build.query<
+      GetUserOrdersUsersByUserIdApiResponse,
+      GetUserOrdersUsersByUserIdApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/user/orders/users/${queryArg["user-id"]}`,
+      }),
+      providesTags: ["Order"]
+    }),
+    postUserOrdersUsersByUserId: build.mutation<
+      PostUserOrdersUsersByUserIdApiResponse,
+      PostUserOrdersUsersByUserIdApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/user/orders/users/${queryArg["user-id"]}`,
+        method: "POST",
+        body: queryArg.createOrder,
+      }),
+      providesTags: ["Order"]
+    }),
+    getUserOrdersShopsByShopId: build.query<
+      GetUserOrdersShopsByShopIdApiResponse,
+      GetUserOrdersShopsByShopIdApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/user/orders/shops/${queryArg["shop-id"]}`,
+      }),
+    }),
+    patchUserOrdersByOrderIdStatus: build.mutation<
+      PatchUserOrdersByOrderIdStatusApiResponse,
+      PatchUserOrdersByOrderIdStatusApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/user/orders/${queryArg["order-id"]}/status`,
+        method: "PATCH",
+        body: queryArg.body,
+      }),
+    }),
   }),
   overrideExisting: false,
 });
@@ -171,6 +242,7 @@ export type PostUserSignInApiResponse =
   /** status 200 Метод успешно отработал */ {
     accessToken?: string;
     refreshToken?: string;
+    userProfile?: User;
   };
 export type PostUserSignInApiArg = {
   /** Данные элемента страницы */
@@ -180,7 +252,11 @@ export type PostUserSignInApiArg = {
   };
 };
 export type PostUserSignUpApiResponse =
-  /** status 200 Метод успешно отработал */ Uuid;
+  /** status 200 Метод успешно отработал */ {
+    accessToken?: string;
+    refreshToken?: string;
+    userProfile?: User;
+  };
 export type PostUserSignUpApiArg = {
   /** Данные элемента страницы */
   userSignIn: UserSignIn;
@@ -221,6 +297,73 @@ export type PostUserByUserIdProductandProductIdReviewsApiArg = {
   "product-id": Uuid;
   /** Данные элемента страницы */
   review: Review;
+};
+export type PostShopSignUpApiResponse =
+  /** status 200 Метод успешно отработал */ {
+    accessToken?: string;
+    refreshToken?: string;
+    shopProfile?: ShopProfile;
+  };
+export type PostShopSignUpApiArg = {
+  /** Данные элемента страницы */
+  body: {
+    file?: Файл;
+    shop?: ShopSave;
+  };
+};
+export type PostShopByShopIdProductsApiResponse =
+  /** status 200 Метод успешно отработал */ Product;
+export type PostShopByShopIdProductsApiArg = {
+  /** ID страницы */
+  "shop-id": Uuid;
+  /** Данные товара */
+  body: {
+    file?: Файл;
+    product?: ProductSave;
+  };
+};
+export type PostShopSignInApiResponse =
+  /** status 200 Метод успешно отработал */ {
+    accessToken?: string;
+    refreshToken?: string;
+    shopProfile?: ShopProfile;
+  };
+export type PostShopSignInApiArg = {
+  /** Данные для авторизации */
+  body: {
+    phone?: string;
+    password?: string;
+  };
+};
+export type GetUserOrdersUsersByUserIdApiResponse =
+  /** status 200 Successful response */ Order[];
+export type GetUserOrdersUsersByUserIdApiArg = {
+  /** ID of the user */
+  "user-id": string;
+};
+export type PostUserOrdersUsersByUserIdApiResponse =
+  /** status 201 Successful response */ Uuid;
+export type PostUserOrdersUsersByUserIdApiArg = {
+  /** ID of the user */
+  "user-id": string;
+  /** Order details */
+  createOrder: CreateOrder;
+};
+export type GetUserOrdersShopsByShopIdApiResponse =
+  /** status 200 Successful response */ Order[];
+export type GetUserOrdersShopsByShopIdApiArg = {
+  /** ID of the shop */
+  "shop-id": string;
+};
+export type PatchUserOrdersByOrderIdStatusApiResponse =
+  /** status 200 Successful response */ Order;
+export type PatchUserOrdersByOrderIdStatusApiArg = {
+  /** ID of the order */
+  "order-id": string;
+  /** Order status update */
+  body: {
+    status: string;
+  };
 };
 export type ОбъектСИнформациейОРаботоспособностиСервиса = {
   status?: string;
@@ -267,6 +410,11 @@ export type ShopInList = {
   name?: string;
   logo_image?: ОбъектМедиа;
 };
+export type Цвет = {
+  id?: Uuid;
+  name?: string;
+  hex?: string;
+};
 export type Размер = {
   id?: Uuid;
   name?: string;
@@ -276,7 +424,7 @@ export type ProductInList = {
   name?: string;
   shop?: ShopInList;
   price?: number;
-  colors?: string[];
+  colors?: Цвет[];
   sizes?: Размер[];
   images?: ОбъектМедиа[];
 };
@@ -302,11 +450,6 @@ export type КатегорияТоваров = {
   name?: string;
   subCategories?: КатегорияТоваров[];
 };
-export type Цвет = {
-  id?: Uuid;
-  name?: string;
-  hex?: string;
-};
 export type FiltersAndSorting = {
   categories?: КатегорияТоваров[];
   sizes?: Размер[];
@@ -319,16 +462,25 @@ export type СтраницаКаталогаТоваров = {
   filters?: FiltersAndSorting;
   productList?: ProductInList[];
 };
+export type ShopWithProduct = {
+  id?: Uuid;
+  code?: Sluggable;
+  name?: string;
+  logo_image?: ОбъектМедиа;
+  description?: string;
+  orderQuantity?: number;
+  createdAt?: string;
+  rating?: number;
+};
 export type Product = {
   id?: Uuid;
   name?: string;
   description?: string;
-  composition?: string;
-  shop?: ShopInList;
-  material?: string;
+  shop?: ShopWithProduct;
   price?: number;
   sizes?: Размер[];
   colors?: Цвет[];
+  gender?: string;
   rating?: number;
   quantityReviews?: number;
   sizesInformationImg?: ОбъектМедиа;
@@ -377,6 +529,14 @@ export type Cart = {
   quantity?: number;
   totalPrice?: number;
 };
+export type User = {
+  id?: Uuid;
+  phone?: string;
+  email?: string;
+  lastName?: string;
+  name?: string;
+  gender?: string;
+};
 export type UserSignIn = {
   phone?: string;
   name?: string;
@@ -393,6 +553,68 @@ export type Review = {
   text?: string;
   user?: UserShort;
 };
+export type ShopProfile = {
+  id?: Uuid;
+  code?: Sluggable;
+  name?: string;
+  description?: string;
+  orderQuantity?: number;
+  createdAt?: string;
+  rating?: number;
+};
+export type Файл = Blob;
+export type ShopSave = {
+  code?: Sluggable;
+  name?: string;
+  description?: string;
+  orderQuantity?: number;
+  createdAt?: string;
+  rating?: number;
+  quantityReviews?: number;
+};
+export type ProductSave = {
+  name?: string;
+  description?: string;
+  composition?: string;
+  shopId?: Uuid;
+  material?: string;
+  price?: number;
+  sizeIds?: Uuid[];
+  colors?: Uuid[];
+  gender?: string;
+  categoryIds?: Uuid[];
+};
+export type ProductInOrder = {
+  id?: Uuid;
+  name?: string;
+  shop?: Shop;
+  price?: number;
+  colors?: Цвет;
+  sizes?: Размер;
+  images?: ОбъектМедиа;
+  quantity?: number;
+};
+export type Order = {
+  id?: string;
+  user?: User;
+  totalPrice?: number;
+  status?: string;
+  productItems?: ProductInOrder[];
+  date?: string;
+};
+export type ProductInCreateOrder = {
+  productItemId?: Uuid;
+  sizeId?: Uuid;
+  colorId?: Uuid;
+  shopId?: Uuid;
+  quantity?: number;
+};
+export type CreateOrder = {
+  userId?: Uuid;
+  totalPrice?: number;
+  status?: string;
+  productItems?: ProductInCreateOrder[];
+};
 export const {
   useGetHealthCheckQuery,
   useGetMainPageQuery,
@@ -407,4 +629,11 @@ export const {
   useGetProductByProductIdReviewsQuery,
   useGetShopByShopCodeReviewsQuery,
   usePostUserByUserIdProductandProductIdReviewsMutation,
+  usePostShopSignUpMutation,
+  usePostShopByShopIdProductsMutation,
+  usePostShopSignInMutation,
+  useGetUserOrdersUsersByUserIdQuery,
+  usePostUserOrdersUsersByUserIdMutation,
+  useGetUserOrdersShopsByShopIdQuery,
+  usePatchUserOrdersByOrderIdStatusMutation,
 } = injectedRtkApi;

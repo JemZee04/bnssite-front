@@ -81,14 +81,13 @@ const Product: React.FC = () => {
                         <SelectSizeCard sizes={data?.product?.sizes ?? [{ id: '2fsfs', name: 'XS' }]} onSelect={onSelectSize} />
                     </Row>
                     <Row gutter={20}>
-                        <Col span={16}><AddToCartButton item={{ ...data?.product, colors: data?.product?.colors?.map(c => c.name ?? '') }} /></Col>
-                        <Col span={8}> <AddToFavoritesButton item={{ ...data?.product, colors: data?.product?.colors?.map(c => c.name ?? '') }} /> </Col>
+                        <Col span={16}><AddToCartButton item={{ ...data?.product, colors: data?.product?.colors }} /></Col>
+                        <Col span={8}> <AddToFavoritesButton item={{ ...data?.product, colors: data?.product?.colors }} /> </Col>
                     </Row>
                     <Tabs
                         defaultActiveKey='1'
                         items={[
-                            { key: '1', label: 'Описание', children: data?.product?.description },
-                            { key: '2', label: 'Состав и уход', children: data?.product?.composition },
+                            { key: '1', label: 'Описание', children: data?.product?.description }
                         ]}
                     />
                 </Col>

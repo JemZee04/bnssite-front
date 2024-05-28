@@ -1,7 +1,9 @@
 import { Button, Input, Space } from "antd";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
+import { usePostUserSignInMutation } from "../../store/beekneesApi";
 import { loginThunk } from "../../store/slices/credential/asyncThunks";
 import { useAppDispatch } from "../../store/store";
 
@@ -14,7 +16,7 @@ export const LoginPage: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const onLogin = () => {
+    const onLogin = async() => {
         dispatch(loginThunk({
             body: {
                 phone: phone,
