@@ -76,7 +76,7 @@ const MakeOrder: React.FC<MakeOrderProps> = ({totalCost, deliveryCost, totalCoun
                     <PlaceMap isActive={places[9]} clickHandler={clickPlace} latitude={45.038445} longitude={38.953897} id={10}/>
             </Map>
             <div className={styles.OrderButton}>
-                <Button onClick={clickHandker}>Оформить заказ</Button>
+                <a href="https://pay.web.money/d/tyyv"><Button style={{width: "100%"}} onClick={clickHandker}>Оформить заказ</Button></a>
             </div>
         </div>
     )
