@@ -27,7 +27,10 @@ const Product: React.FC = () => {
         searchParams.set('size', (size?.id ?? '').toString());
     }
 
-    const { isLoading, data } = useGetProductPageByProductIdQuery({ "product-id": params['id'] ?? '' });
+    console.log('PRODUCT ID PARAM ', params['productId']);
+    
+
+    const { isLoading, data } = useGetProductPageByProductIdQuery({ "product-id": params['productId'] ?? '' });
 
     return isLoading
         ? <Spin />

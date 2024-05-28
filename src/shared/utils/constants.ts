@@ -1,6 +1,6 @@
 export const HOME_PATH: string = "/";
 export const CATALOG_PATH: string = "/catalog";
-export const PRODUCT_PATH = "/product/:id";
+export const PRODUCT_PATH = "/product";
 export const ORDERS_PATH = "/profile/orders";
 export const CART_PATH = "/cart";
 export const FAVOURITES_PATH = "/favourites";

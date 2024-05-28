@@ -44,7 +44,6 @@ const Main: React.FC = () => {
                 }}>
                     <img src={WOMAN_FILTER} onClick={onTapWoman} className={styles.MainCategoriesImage} />
                     <img src={MAN_FILTER} onClick={onTapMan} className={styles.MainCategoriesImage} />
-
                 </section>
                 <section className={styles.MainSection}>
                     <h2 className={styles.MainSectionTitle}>Популярные бренды</h2>

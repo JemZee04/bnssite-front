@@ -16,9 +16,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ item, addToCartButton, addToF
 
     return (
         <div className={styles.DivCard}>
-
             <Image
-                onClick={() => navigate(`${PRODUCT_PATH}/:${item.id}`,)}
+                onClick={() => navigate(`${PRODUCT_PATH}/${item.id}`, )}
                 className={styles.ImageCard}
                 fallback={NO_IMAGE}
                 src={item.images !== undefined
