@@ -161,7 +161,7 @@ const injectedRtkApi = api.injectEndpoints({
         method: "POST",
         body: queryArg.createOrder,
       }),
-      providesTags: ["Order"]
+      invalidatesTags: ["Order"]
     }),
     getUserOrdersShopsByShopId: build.query<
       GetUserOrdersShopsByShopIdApiResponse,
