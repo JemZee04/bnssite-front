@@ -50,10 +50,10 @@ const Main: React.FC = () => {
                 </section>
                 {data?.shopList && <section className={styles.MainSection}>
                     <List
-                        grid={{ gutter: 16, column: 4 }}
+                        grid={{ gutter: 8, column: 5 }}
                         loading={isLoading}
                         itemLayout='horizontal'
-                        dataSource={data.shopList.slice(0, 4) ?? []}
+                        dataSource={data.shopList.slice(0, 5) ?? []}
                         renderItem={(item) => (
                             <List.Item id={item.id}>
                                 <BrandCard
@@ -68,7 +68,7 @@ const Main: React.FC = () => {
                 <section className={styles.MainSection}>
                     <h2 className={styles.MainSectionTitle}>Категории</h2>
                     <List
-                        grid={{ gutter: 16, column: 4 }}
+                        grid={{ gutter: 8, column: 5 }}
                         itemLayout='horizontal'
                         dataSource={data?.headerMenu ?? []}
                         renderItem={(item) => (
@@ -89,8 +89,8 @@ const Main: React.FC = () => {
                 <section className={styles.MainSection}>
                     <h2 className={styles.MainSectionTitle}>Скидки</h2>
                     <List
-                        dataSource={data?.saleProductList?.slice(0, 4) ?? []}
-                        grid={{ gutter: 16, column: 4 }}
+                        dataSource={data?.saleProductList?.slice(0, 5) ?? []}
+                        grid={{ gutter: 8, column: 5 }}
                         renderItem={(item, _) => (
                             <List.Item>
                                 <ProductCard
@@ -105,8 +105,8 @@ const Main: React.FC = () => {
                 <section className={styles.MainSection}>
                     <h2 className={styles.MainSectionTitle}>Популярные товары</h2>
                     <List
-                        dataSource={data?.popularProductList?.slice(0, 4) ?? []}
-                        grid={{ gutter: 16, column: 4 }}
+                        dataSource={data?.popularProductList?.slice(0, 5) ?? []}
+                        grid={{ gutter: 8, column: 5 }}
                         renderItem={(item, _) => (
                             <List.Item>
                                 <ProductCard
