@@ -12,6 +12,7 @@ import WOMAN_FILTER from '../../../assets/images/woman.png';
 import MAN_FILTER from '../../../assets/images/man.png';
 import styles from './Main.module.css';
 import { CATALOG_PATH, CATEGORY_PATH } from "../../../shared/utils/constants";
+import CategoryCard from "../../../components/categoryCard/CategoryCard";
 
 const Main: React.FC = () => {
 
@@ -67,7 +68,7 @@ const Main: React.FC = () => {
                     </div>
                     <div style={{position: "absolute", width: "100%", top: "20px", height: "80px", boxShadow: " 0 0 60px #7122FB", backgroundColor: "#7122fb83"}}></div>
                 </section>}
-                <section className={styles.MainSection}>
+                <section className={styles.MainSection} style={{display: "flex", flexDirection: "column", gap: "20px"}}>
                     <h2 className={styles.MainSectionTitle}>Категории</h2>
                     <List
                         grid={{ gutter: 8, column: 5 }}
@@ -75,20 +76,13 @@ const Main: React.FC = () => {
                         dataSource={data?.headerMenu ?? []}
                         renderItem={(item) => (
                             // <List.Item>
-                            <Card
-                                hoverable
-                                style={{
-                                    maxHeight: 500,
-                                    maxWidth: 220
-                                }}
-                                title={item.text}
-                            />
+                            <CategoryCard item={item}/>
                             // </List.Item>
 
                         )}
                     />
                 </section>
-                <section className={styles.MainSection}>
+                <section className={styles.MainSection} style={{display: "flex", flexDirection: "column", gap: "20px"}}>
                     <h2 className={styles.MainSectionTitle}>Скидки</h2>
                     <List
                         dataSource={data?.saleProductList?.slice(0, 5) ?? []}
@@ -104,7 +98,7 @@ const Main: React.FC = () => {
                         )}
                     />
                 </section>
-                <section className={styles.MainSection}>
+                <section className={styles.MainSection} style={{display: "flex", flexDirection: "column", gap: "20px"}}>
                     <h2 className={styles.MainSectionTitle}>Популярные товары</h2>
                     <List
                         dataSource={data?.popularProductList?.slice(0, 5) ?? []}

@@ -1,0 +1,29 @@
+.CardDiv{
+    width: 430px;
+    height: 540px;
+    border: 4px solid #BDFF2E;
+    border-radius: 20px;
+    background-color: #2E3345;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CardDiv:hover{
+    background-color: #212431;
+}
+
+.CardButton{
+    font-family: "Source Sans 3";
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    color: #424242;
+    background: linear-gradient(0deg, #BDFF2E, #BDFF2E);
+    box-shadow: 0px 4px 4px 0px #0000000D;
+    width: Fixed (200px)px;
+    padding: 10px 20px 10px 20px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+}
