@@ -1,8 +1,9 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { Button, Col, Layout, Row, Typography } from 'antd';
-import { Content, Footer, Header } from "antd/es/layout/layout";
+import { Content, Header } from "antd/es/layout/layout";
 import { AppMenu } from "./widgets/menu/Menu";
 import { HOME_PATH } from "./shared/utils/constants";
+import Footer from "./components/footer/Footer";
 
 
 const AppLayout: React.FC = () => {
@@ -45,10 +46,8 @@ const AppLayout: React.FC = () => {
       <Content>
         <Outlet />
       </Content>
-      <Footer>
-        Самый стандартный футер
-      </Footer>
-    </Layout>
+      <Footer/>
+      </Layout>
   )
 }
 
