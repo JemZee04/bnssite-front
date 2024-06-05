@@ -5,9 +5,11 @@
 }
 
 .MainSectionTitle {
-    margin-bottom: 15px;
+    font-family: "Raleway";
     font-size: 40px;
-    font-weight: bold;
+    font-weight: 700;
+    margin: 0;
+    color: #FFFFFF;
 }
 
 .MainCategoriesImage {

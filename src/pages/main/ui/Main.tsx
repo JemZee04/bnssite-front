@@ -33,7 +33,7 @@ const Main: React.FC = () => {
 
     return (isLoading ? <Spin /> :
         <>
-            <Space size={20} direction='vertical' style={{ width: '100%' }}>
+            <Space size={20} direction='vertical' style={{ width: '100%', backgroundColor: "#2E3345" }}>
                 <section style={{
                     height: '100vh',
                     display: 'flex',
@@ -48,22 +48,24 @@ const Main: React.FC = () => {
                 <section className={styles.MainSection}>
                     <h2 className={styles.MainSectionTitle}>Популярные бренды</h2>
                 </section>
-                {data?.shopList && <section className={styles.MainSection}>
-                    <List
-                        grid={{ gutter: 8, column: 5 }}
-                        loading={isLoading}
-                        itemLayout='horizontal'
-                        dataSource={data.shopList.slice(0, 5) ?? []}
-                        renderItem={(item) => (
-                            <List.Item id={item.id}>
-                                <BrandCard
-                                    image={item.logo_image?.filepath ?? ''}
-                                    title={item.name ?? ''}
-                                />
-                            </List.Item>
-
-                        )}
-                    />
+                {data?.shopList && <section style={{position: "relative"}} className={styles.MainSection}>
+                    <div style={{zIndex: 100, position: "relative"}}>
+                        <List
+                            grid={{ gutter: 8, column: 5 }}
+                            loading={isLoading}
+                            itemLayout='horizontal'
+                            dataSource={data.shopList.slice(0, 5) ?? []}
+                            renderItem={(item) => (
+                                <List.Item id={item.id}>
+                                    <BrandCard
+                                        image={item.logo_image?.filepath ?? ''}
+                                        title={item.name ?? ''}
+                                    />
+                                </List.Item>
+                            )}
+                        />
+                    </div>
+                    <div style={{position: "absolute", width: "100%", top: "20px", height: "80px", boxShadow: " 0 0 60px #7122FB", backgroundColor: "#7122fb83"}}></div>
                 </section>}
                 <section className={styles.MainSection}>
                     <h2 className={styles.MainSectionTitle}>Категории</h2>
