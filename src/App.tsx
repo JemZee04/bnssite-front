@@ -11,6 +11,7 @@ const AppLayout: React.FC = () => {
   const navigate = useNavigate();
 
   return (
+    <div style={{overflowX: "hidden"}}>
     <Layout style={{ minHeight: '100vh' }}>
       <Header style={{
         position: 'sticky',
@@ -48,6 +49,7 @@ const AppLayout: React.FC = () => {
       </Content>
       <Footer/>
       </Layout>
+      </div>
   )
 }
 
