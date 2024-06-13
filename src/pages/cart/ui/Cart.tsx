@@ -1,11 +1,12 @@
 import { Button, ConfigProvider, List, Modal } from "antd";
 import { cartSelectors } from "../../../store/slices/cart";
 import { useAppSelector } from "../../../store/store";
-import { ProductCartItemCard } from "../../../components/ProductCartItemCard";
+import { ProductCartItemCard } from "../../../components/productCartItemCard/ProductCartItemCard";
 import { useMemo, useState } from "react";
 import OrderInfo from "../../../widgets/orderInfo/OrderInfo";
 import styles from "./Cart.module.css";
 import MakeOrder from "../../../widgets/makeOrder/MakeOrder";
+import { Numerals } from "../../../shared/utils/Numerals";
 
 const Cart: React.FC = () => {
     const  [isOpen, setIsOpen] = useState<boolean>(false);
@@ -23,33 +24,58 @@ const Cart: React.FC = () => {
     )
 
     return (
-        <div style={{
+        <div
+            className={styles.CardWrap}
+            style={{
             maxHeight: '850px',
-            overflowY: 'scroll',
-            overflowX: 'hidden'
+            overflowY: 'hidden',
+            overflowX: 'hidden',
+            backgroundColor: "#6712FB",
+            borderRadius: "20px"
         }}>
-            <h1>Корзина</h1>
-            <div style={{ marginBottom: 20 }}>{`${totalCount} товаров`}</div>
+            <h1 className={styles.Title}>Корзина</h1>
+            <div className={styles.Content}>{`${totalCount} ${Numerals.numeralsProducts(totalCount)}`.toUpperCase()}</div>
+            <div className={styles.ListWrap}>
+                <List
+                    itemLayout='vertical'
+                    style={{ width: '100%', height: '100%' }}
+                    dataSource={products}
+                    renderItem={(item, _) => (
+                        <List.Item>
+                            <ProductCartItemCard item={item} />
+                        </List.Item>
 
-            <List
-                itemLayout='vertical'
-                style={{ width: '100%', height: '100%' }}
-                dataSource={products}
-                renderItem={(item, _) => (
-                    <List.Item>
-                        <ProductCartItemCard item={item} />
-                    </List.Item>
-
-                )}
-            />
-
+                    )}
+                />
+            </div>
             <OrderInfo totalCount={totalCount} deliveryCost={0} totalCost={totalCost} />
             <div className={styles.DivButton}>
                 <Button onClick={() => setIsOpen(true)} size={"large"}>Оформить заказ</Button>
             </div>
-            <Modal title="Оформление заказа" open={isOpen} onCancel={() => setIsOpen(false)} footer={[]}>
-                <MakeOrder totalCount={totalCount} deliveryCost={0} totalCost={totalCost}/>
-            </Modal>
+            <ConfigProvider
+                theme={{
+                    token: {
+                        fontFamily: "Source Sans 3",
+                        borderRadiusLG: 20,
+                        borderRadiusSM: 20,
+                        colorPrimaryBorder: "#BDFF2E",
+                        lineWidth: 4,
+                        lineType: "solid"
+                    },
+                    components: {
+                        Modal: {
+                            headerBg: "#6712FB",
+                            lineWidth: 4,
+                            lineType: "solid",
+                            colorPrimaryBorder: "#BDFF2E"
+                        },
+                    },
+                }}
+            >
+                <Modal open={isOpen} onCancel={() => setIsOpen(false)} footer={[]}>
+                    <MakeOrder totalCount={totalCount} deliveryCost={0} totalCost={totalCost}/>
+                </Modal>
+            </ConfigProvider>
         </div>
 
     )

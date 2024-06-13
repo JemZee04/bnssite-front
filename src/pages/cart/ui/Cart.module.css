@@ -9,3 +9,44 @@
     border-radius: 30px;
     font-size: 20px;
 }
+
+.Title{
+    font-family: "Source Sans 3";
+    font-size: 30px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.Content{
+    font-family: "Source Sans 3";
+    font-size: 24px;
+    font-weight: 600;
+    color: #DEDEDE;
+    margin: 0;
+}
+
+.CardWrap{
+    max-height: 700px;
+    overflow-y: hidden;
+}
+
+.ListWrap{
+    max-height: 360px;
+    overflow:  hidden scroll;
+}
+
+.ListWrap::-webkit-scrollbar{
+    width: 6px;
+  }
+  
+.ListWrap::-webkit-scrollbar-track{
+    background-color: #2E3345;
+    border-radius: 100px;
+    margin: 5px;
+}
+  
+.ListWrap::-webkit-scrollbar-thumb {
+    background-color: #BDFF2E;
+    border-radius: 100px;
+}
