@@ -1,7 +1,7 @@
 import { useParams, useSearchParams } from "react-router-dom";
 import { AddToFavoritesButton } from "../../../components/AddToFavoritesButton";
 import ProductCard from "../../../components/productCard/ProducrCard";
-import {  useGetCatalogPageQuery } from "../../../store/beekneesApi";
+import { useGetCatalogPageQuery } from "../../../store/beekneesApi";
 import styles from "./Catalog.module.css";
 import { AddToCartButton } from "../../../components/AddToCartButton";
 import { CatalogFilter } from "./CatalogFilter";
@@ -29,7 +29,7 @@ const Catalog: React.FC = () => {
         colors: params.get('colors')?.split('%'),
         sizes: params.get('sizes')?.split('%'),
         shops: params.get('brands')?.split('%')
-        
+
     });
 
     const selectedFilters = useMemo<SelectedFiltersTypes>(() => ({
@@ -67,30 +67,31 @@ const Catalog: React.FC = () => {
     }
 
     return (
-        isLoading
-            ? <p>Загрузка...</p>
-            : <>
-                <div>
-                    <CatalogFilter filters={data?.filters ?? null} onSelectFilter={onSelectFilter} selectedFilters={selectedFilters} />
-                </div>
-                <div className={styles.WrapPage}>
-                    <div className={styles.WrapListProduct}>
-                        {
-                            data?.productList?.map((item, index) => {
-                                return <ProductCard
-                                    key={index}
-                                    item={item}
-                                    addToCartButton={<AddToCartButton item={item} />}
-                                    addToFavoriteButton={<AddToFavoritesButton item={item} />}
-                                />
-                            })
-                        }
-
-
+        <section style={{ width: '100%', backgroundColor: "#2E3345" }}>
+            {isLoading
+                ? <p>Загрузка...</p>
+                : <>
+                    <div>
+                        <CatalogFilter filters={data?.filters ?? null} onSelectFilter={onSelectFilter} selectedFilters={selectedFilters} />
                     </div>
-                </div>
-            </>
+                    <div className={styles.WrapPage}>
+                        <div className={styles.WrapListProduct}>
+                            {
+                                data?.productList?.map((item, index) => {
+                                    return <ProductCard
+                                        key={index}
+                                        item={item}
+                                        addToCartButton={<AddToCartButton item={item} />}
+                                        addToFavoriteButton={<AddToFavoritesButton item={item} />}
+                                    />
+                                })
+                            }
 
+
+                        </div>
+                    </div>
+                </>}
+        </section>
     )
 }
 
