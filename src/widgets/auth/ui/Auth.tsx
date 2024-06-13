@@ -1,4 +1,4 @@
-import { Tabs } from "antd";
+import { ConfigProvider, Tabs } from "antd";
 import { useMemo } from "react";
 import { LoginPage } from "../../../pages/login/LoginPage";
 import Regist from "../../regist/ui/Regist";
@@ -28,7 +28,26 @@ export const AuthPage: React.FC = () => {
             width: 350,
             margin: '0 auto'
         }}>
+            <ConfigProvider
+                theme={{
+                    token: {
+                        fontFamily: "Source Sans 3"
+                    },
+                    components: {
+                        Tabs: {
+                            inkBarColor: "#BDFF2E",
+                            itemActiveColor: "#BDFF2E",
+                            itemColor: "#FFFFFF",
+                            itemSelectedColor: "#BDFF2E",
+                            titleFontSize: 20,
+                            itemHoverColor: "#BDFF2E",
+                            fontFamily: "Source Sans 3"
+                        },
+                    },
+                }}
+            >
             <Tabs defaultActiveKey="1" items={items} />
+            </ConfigProvider>
         </div>
 
     );
