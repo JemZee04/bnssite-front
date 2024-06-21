@@ -59,7 +59,7 @@ const Main: React.FC = () => {
                             renderItem={(item) => (
                                 <List.Item id={item.id}>
                                     <BrandCard
-                                        code={item.code ?? ''}
+                                        id={item.id ?? ''}
                                         image={item.logo_image?.filepath ?? ''}
                                         title={item.name ?? ''}
                                     />
