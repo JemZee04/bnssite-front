@@ -25,6 +25,7 @@ export const SEARCH_PATH = "/search/q?=:query";
 export const CATEGORY_PATH = "/category?=:category";
 export const FILTERS_PATH = "/filters?=:filters";
 
+export const BRAND_PATH = '/brands'
 
 export const PROFILE_PATH = '/profile';
 export const AUTH_PATH = 'auth';

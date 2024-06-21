@@ -28,7 +28,7 @@ const Product: React.FC = () => {
     }
 
     console.log('PRODUCT ID PARAM ', params['productId']);
-    
+
 
     const { isLoading, data } = useGetProductPageByProductIdQuery({ "product-id": params['productId'] ?? '' });
 
@@ -61,7 +61,11 @@ const Product: React.FC = () => {
                             </Row>
                         </Col>
                         <Col span={12}>
-                            <BrandCard title={data?.product?.shop?.name ?? 'Бренд'} image={data?.product?.shop?.logo_image?.filepath ?? ''} />
+                            <BrandCard
+                                title={data?.product?.shop?.name ?? 'Бренд'}
+                                image={data?.product?.shop?.logo_image?.filepath ?? ''}
+                                id={data?.product?.shop?.id ?? ''}
+                            />
                         </Col>
                     </Row>
                     <Row>

@@ -33,7 +33,8 @@ import {
     PRODUCT_PATH,
     PROFILE_PATH,
     RECOVERY_PASSWORD_PATH,
-    SEARCH_PATH
+    SEARCH_PATH,
+    BRAND_PATH
 } from "../shared/utils/constants";
 // import Auth from "../widgets/auth/ui/Auth";
 import ChangePassword from "../widgets/changePassword/ui/ChangePassword";
@@ -45,6 +46,7 @@ import Regist from "../widgets/regist/ui/Regist";
 import { ModalRoute } from "../shared/ui/modal/ModalRoute";
 import { AuthGuard } from "./AuthGuard";
 import { ProfilePage } from "../pages/profile/ui/ProfilePage";
+import { BrandPage } from "../pages/brand/BrandPage";
 
 const Router: React.FC = () => {
     const location = useLocation();
@@ -66,6 +68,7 @@ const Router: React.FC = () => {
                         <Route path={`${CATALOG_PATH}${SEARCH_PATH}${CATEGORY_PATH}${FILTERS_PATH}`} element={<Catalog />} />
                     </Route>
                     <Route path={`${PRODUCT_PATH}/:productId`} element={<Product />} />
+                    <Route path={`${BRAND_PATH}/:brandId`} element={<BrandPage />} />
                     {/* <Route path={PROFILE_PATH} element={<ProfileMain />}>
                         <Route path={PROFILE_PATH} element={<Profile />} />
                         <Route path={ORDERS_PATH} element={<Orders />} />

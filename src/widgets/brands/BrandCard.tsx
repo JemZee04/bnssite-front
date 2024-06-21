@@ -1,7 +1,10 @@
 import { Card, ConfigProvider } from "antd";
 import styles from "./BrandCard.module.css";
+import { useNavigate } from "react-router-dom";
+import { BRAND_PATH } from "../../shared/utils/constants";
 
 type BrandCardProps = {
+    id: string,
     image: string,
     title: string,
     loading?: boolean
@@ -10,8 +13,16 @@ type BrandCardProps = {
 export const BrandCard: React.FC<BrandCardProps> = ({
     image,
     loading,
-    title
+    title, 
+    id
 }) => {
+
+    const navigate = useNavigate();
+
+    const onBrandClick = () => {
+        navigate(`${BRAND_PATH}/${id}`);
+    }
+
     return (
         <ConfigProvider
             theme={{
@@ -28,7 +39,7 @@ export const BrandCard: React.FC<BrandCardProps> = ({
             <Card
                 loading={loading}
                 hoverable
-
+                onClick={onBrandClick}
                 style={{
                     maxWidth: 500,
                     maxHeight: 220,
