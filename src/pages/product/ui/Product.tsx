@@ -1,17 +1,18 @@
 import { useParams, useSearchParams } from "react-router-dom";
 import { useGetProductPageByProductIdQuery } from "../../../store/beekneesApi";
-import { Col, ConfigProvider, Image, Rate, Row, Spin, Statistic, Tabs } from "antd";
+import { Col, ConfigProvider, Image, Modal, Rate, Row, Spin, Statistic, Tabs } from "antd";
 import NO_IMAGE from '../../../assets/images/no_image.png';
 import { LikeOutlined } from "@ant-design/icons";
 import { BrandCard } from "../../../widgets/brands/BrandCard";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Size } from "../../../@types/types";
 import { SelectSizeCard } from "../../../components/SelectSizeCard";
 import { AddToCartButton } from "../../../components/AddToCartButton";
 import { AddToFavoritesButton } from "../../../components/AddToFavoritesButton";
+import Reviews from "../../../widgets/reviews/Reviews";
 
 const Product: React.FC = () => {
-
+    const [isOpen, setIsOpen] = useState<boolean>(false);
     const params = useParams();
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -53,7 +54,7 @@ const Product: React.FC = () => {
                             <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginRight: 25, marginBottom: 10}}>
                                 <Rate value={data?.product?.rating ?? 1} disabled />
                                 <div style={{display: "flex", gap: 5}}>
-                                    <p style={{color: "#C7C7C7", fontWeight: 400, fontSize: 24, fontFamily: "Source Sans 3"}}>{data?.product?.quantityReviews ?? 0} отзывов</p>
+                                    <p onClick={() => setIsOpen(true)} style={{cursor: "pointer", color: "#C7C7C7", fontWeight: 400, fontSize: 24, fontFamily: "Source Sans 3"}}>{data?.product?.quantityReviews ?? 4} отзывов</p>
                                 </div>
                             </div>
                             <div>
@@ -124,6 +125,27 @@ const Product: React.FC = () => {
                     </ConfigProvider>
                 </Col>
             </div>
+            <ConfigProvider
+               theme={{
+                    token: {
+                        borderRadiusLG: 20,
+                        borderRadiusSM: 20,
+                        colorPrimaryBorder: "#BDFF2E",
+                        lineWidth: 4,
+                        lineType: "solid"
+                    },
+                    components: {
+                        Modal: {
+                            contentBg: "#6712FB",
+                            titleColor: "#FFFFFF"
+                        },
+                    },
+                }}
+            >
+            <Modal open={isOpen} onCancel={() => setIsOpen(false)} footer={[]}>
+                <Reviews/>
+            </Modal>
+            </ConfigProvider>
         </section>
 
 

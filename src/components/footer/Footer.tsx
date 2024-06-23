@@ -11,25 +11,25 @@ const Footer: React.FC = () => {
     const navigate = useNavigate();
 
     return(
-        <div style={{background: "linear-gradient(0deg, #222633, #252938)", padding: "50px", display: "flex", justifyContent: "space-between"}}>
+        <div style={{background: "linear-gradient(0deg, #222633, #252938)", padding: "50px", display: "flex", justifyContent: "space-between", gap: 25, flexWrap: "wrap"}}>
             <div style={{height: "138px", display: "flex", flexDirection: "column", justifyContent: "space-between", width: "150px"}}>
                 <img src={LogoFooter} alt="logo" onClick={() => navigate(HOME_PATH)} style={{cursor: "pointer"}}/>
                 <p className={styles.FooterContent}>© 2024 Bee knees</p>
             </div>
             
-            <div style={{width: "fit-content", height: "138px", display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+            <div style={{width: "fit-content", height: "138px", display: "flex", flexDirection: "column", justifyContent: "space-between", paddingBottom: 30}}>
                 <h3 className={styles.FooterTitle}>Компания</h3>
                 <p className={styles.FooterContent}>О нас</p>
                 <p className={styles.FooterContent}>Магазины</p>
             </div>
 
-            <div style={{width: "fit-content", height: "138px", display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+            <div style={{width: "fit-content", height: "138px", display: "flex", flexDirection: "column", justifyContent: "space-between", paddingBottom: 30}}>
                 <h3 className={styles.FooterTitle}>Информация</h3>
                 <p className={styles.FooterContent}>Доставка и оплата</p>
                 <p className={styles.FooterContent}>Обмен и возврат</p>
             </div>
 
-            <div style={{width: "fit-content", height: "138px", display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+            <div style={{width: "fit-content", height: "138px", display: "flex", flexDirection: "column", justifyContent: "space-between", paddingBottom: 30}}>
                 <h3 className={styles.FooterTitle}>Контакты</h3>
                 <p className={styles.FooterContent}>Обратная связь</p>
                 <div style={{display: "flex", width:"75px", justifyContent: "space-between"}}>
@@ -38,12 +38,12 @@ const Footer: React.FC = () => {
                 </div>
             </div>
 
-            <div style={{width: "fit-content", height: "89px", display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+            <div style={{width: "fit-content", height: "89px", display: "flex", flexDirection: "column", justifyContent: "space-between", paddingBottom: 30}}>
                 <h3 className={styles.FooterTitle}>Способы оплаты</h3>
                 <img src={Pay} alt="pay"/>
             </div>
 
-            <div style={{width: "fit-content", height: "89px", display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+            <div style={{width: "fit-content", height: "89px", display: "flex", flexDirection: "column", justifyContent: "space-between", paddingBottom: 30}}>
                 <h3 className={styles.FooterTitle}>Подписка на новости и акции</h3>
                 <div style={{display: "flex", flexDirection: "row", gap: "10px"}}>
                     <Input

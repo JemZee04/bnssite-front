@@ -79,17 +79,6 @@ const Main: React.FC = () => {
                             })
                         }
                     </div>
-                    {/* <List
-                        grid={{ gutter: 8, column: 4 }}
-                        itemLayout='horizontal'
-                        dataSource={data?.categories ?? []}
-                        renderItem={(item) => (
-                            // <List.Item>
-                            <CategoryCard item={item}/>
-                            // </List.Item>
-
-                        )}
-                    /> */}
                 </section>
                 <div className={styles.marquee}>
                     <span><img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE</span>
