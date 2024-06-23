@@ -37,3 +37,32 @@
     flex-direction: column;
     gap: 20px;
 }
+
+.marquee{
+    text-align:left;
+    width:100%;
+    overflow:hidden;
+    white-space: nowrap;
+    height: 82px;
+    background-color: #6712FB;
+    display: flex;
+    align-items: center;
+}
+.marquee span { 
+    font-family: 'Source Sans 3';
+    font-weight: 700;
+    font-size: 48px;
+    color: #FFFFFF;
+    display:inline-block;
+    width:100%;
+    text-indent:0;
+    animation: marquee 10s linear infinite
+}
+.marquee span:hover{animation-play-state: paused}
+@keyframes marquee {
+0%  { transform: translate(100%, 0); }
+100% { transform: translate(-100%, 0); }
+}
+@media only screen and (max-width: 440px) {
+.marquee span{animation:none;padding-left:0}
+}

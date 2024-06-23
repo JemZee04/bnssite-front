@@ -401,10 +401,10 @@ export type MenuItem = {
   menuItems?: MenuItem[];
 };
 export type Uuid = string;
-export type КатегорияТоваров = {
+export type CategoriesProducts = {
   id?: Uuid;
   name?: string;
-  subCategories?: КатегорияТоваров[];
+  subCategories?: CategoriesProducts[];
 };
 export type Sluggable = string;
 export type ОбъектМедиа = {
@@ -455,7 +455,7 @@ export type ProductInList = {
 };
 export type ГлавнаяСтраница = {
   headerMenu?: MenuItem[];
-  categories?: КатегорияТоваров[];
+  categories?: CategoriesProducts[];
   shopList?: ShopInList[];
   saleProductList?: ProductInList[];
   popularProductList?: ProductInList[];
@@ -472,7 +472,7 @@ export type Error = {
   debug?: string;
 };
 export type FiltersAndSorting = {
-  categories?: КатегорияТоваров[];
+  categories?: CategoriesProducts[];
   sizes?: Размер[];
   colors?: Цвет[];
   shops?: ShopInList[];

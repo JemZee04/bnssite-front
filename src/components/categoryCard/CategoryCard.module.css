@@ -3,14 +3,17 @@
     height: 540px;
     border: 4px solid #BDFF2E;
     border-radius: 20px;
-    background-color: #2E3345;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url(../../assets/images/category.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
 }
 
 .CardDiv:hover{
     background-color: #212431;
+    background-blend-mode: multiply;
 }
 
 .CardButton{

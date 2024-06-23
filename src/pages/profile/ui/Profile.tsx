@@ -1,4 +1,4 @@
-import { Avatar, Button, Col, Collapse, Input, Row } from "antd";
+import { Avatar, Button, Col, Collapse, ConfigProvider, Input, Row } from "antd";
 import { useEffect } from "react";
 import OrderCardList from "../../../components/orderCard/OrderCardsList";
 import OrderHeader from "../../../components/orderCard/OrderHeader";
@@ -19,24 +19,41 @@ const Profile: React.FC = () => {
 
     return(
         <div className={styles.DivProfile}>
+            <ConfigProvider
+            theme={{
+                token: {
+                    colorText: "#FFFFFF",
+                    colorBgContainer: "#FFFFFF"
+                },
+                components: {
+                    Input: {
+                        colorBgBase: "#FFFFFF",
+                        activeBg: "#FFFFFF",
+                        addonBg: "#FFFFFF",
+                        colorBgContainerDisabled: "#FFFFFF",
+                        colorTextDisabled: "#000000"
+                    }
+                }
+            }}
+            >
             <div>
-                <p>Имя</p>
+                <p style={{fontFamily: "Source Sans 3", fontWeight: 700, fontSize: 20, color: "#FFFFFF"}}>Имя</p>
                 <Input placeholder="Имя..." value={profile?.name} disabled/>
             </div>
            
-           <div>
-                <p>Телефон</p>
+           <div style={{padding: "0 0 15px"}}>
+                <p style={{fontFamily: "Source Sans 3", fontWeight: 700, fontSize: 20, color: "#FFFFFF"}}>Телефон</p>
                 <Input placeholder="Телефон..." value={profile?.phone} disabled/>
            </div>
-
+           </ConfigProvider>
            <div>
-                <p>Заказы</p>
+                <p style={{fontFamily: "Source Sans 3", fontWeight: 700, fontSize: 20, color: "#FFFFFF"}}>Заказы</p>
                 <>
                 {
                     isLoading
-                    ?   <p>Загрузка...</p>
+                    ?   <p style={{fontFamily: "Source Sans 3", fontWeight: 700, fontSize: 16, color: "#C7C7C7"}}>Загрузка...</p>
                     :   data?.length === 0 || data === undefined
-                        ?   <p>Нет заказов</p>
+                        ?   <p style={{fontFamily: "Source Sans 3", fontWeight: 700, fontSize: 16, color: "#C7C7C7"}}>Нет заказов</p>
                         : <Collapse bordered={false} items={data?.map((item, index) => {
                             return {
                                 key: index,

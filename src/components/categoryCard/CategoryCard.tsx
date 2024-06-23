@@ -1,10 +1,10 @@
 import { Card, ConfigProvider } from "antd";
 import { useState } from "react";
-import { MenuItem } from "../../store/beekneesApi";
+import { CategoriesProducts, MenuItem } from "../../store/beekneesApi";
 import styles from "./CategoryCard.module.css";
 
 type CategoryCardProps = {
-    item: MenuItem;
+    item: CategoriesProducts;
 }
 
 const CategoryCard: React.FC<CategoryCardProps> = ({ item }) => {
@@ -29,7 +29,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ item }) => {
                     onMouseLeave={() => setIsActive(false)}>
                         {
                             isActive
-                            ? <button className={styles.CardButton}>{item.text ?? "Футболки"}</button>
+                            ? <button className={styles.CardButton}>{item.name ?? "Футболки"}</button>
                             : null
                         }
                         

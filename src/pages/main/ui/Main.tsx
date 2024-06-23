@@ -13,6 +13,7 @@ import MAN_FILTER from '../../../assets/images/man.png';
 import styles from './Main.module.css';
 import { CATALOG_PATH, CATEGORY_PATH } from "../../../shared/utils/constants";
 import CategoryCard from "../../../components/categoryCard/CategoryCard";
+import Star from "../../../assets/icons/star1.svg";
 
 const Main: React.FC = () => {
 
@@ -71,18 +72,28 @@ const Main: React.FC = () => {
                 </section>}
                 <section className={styles.MainSection} style={{display: "flex", flexDirection: "column", gap: "20px"}}>
                     <h2 className={styles.MainSectionTitle}>Категории</h2>
-                    <List
-                        grid={{ gutter: 8, column: 5 }}
+                    <div style={{display: "flex", gap: 10}}>
+                        {
+                            data?.categories?.map((item, index) => {
+                                return <CategoryCard key={index} item={item}/>
+                            })
+                        }
+                    </div>
+                    {/* <List
+                        grid={{ gutter: 8, column: 4 }}
                         itemLayout='horizontal'
-                        dataSource={data?.headerMenu ?? []}
+                        dataSource={data?.categories ?? []}
                         renderItem={(item) => (
                             // <List.Item>
                             <CategoryCard item={item}/>
                             // </List.Item>
 
                         )}
-                    />
+                    /> */}
                 </section>
+                <div className={styles.marquee}>
+                    <span><img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE <img src={Star} alt="star"/> HIT SALE</span>
+                </div>
                 <section className={styles.MainSection} style={{display: "flex", flexDirection: "column", gap: "20px"}}>
                     <h2 className={styles.MainSectionTitle}>Скидки</h2>
                     <List
