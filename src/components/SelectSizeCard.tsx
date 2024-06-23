@@ -14,8 +14,16 @@ export const SelectSizeCard: React.FC<SelectSizeCardProps> = ({ sizes, onSelect 
             {sizes.map(size => (
                 <div
                     style={{
-                        width: '60px',
-                        height: '60px',
+                        cursor: "pointer",
+                        fontFamily: "Source Sans 3",
+                        fontWeight: 400,
+                        fontSize: 24,
+                        color: "#FFFFFF",
+                        border: "2px solid #6712FB",
+                        borderRadius: 10,
+                        padding: 20,
+                        display: "flex",
+                        justifyContent: "center",
                         textAlign: 'center'
                     }}
                     onClick={() => onSelect(size)}

@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { emptySplitApi as api } from "./emptyApi";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -9,9 +8,7 @@ const injectedRtkApi = api.injectEndpoints({
       query: () => ({ url: `/health/check` }),
     }),
     getMainPage: build.query<GetMainPageApiResponse, GetMainPageApiArg>({
-      query: () => (
-        { url: `/main-page` }
-        ),
+      query: () => ({ url: `/main-page` }),
     }),
     getCatalogPage: build.query<
       GetCatalogPageApiResponse,
@@ -38,11 +35,11 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({ url: `/product-page/${queryArg["product-id"]}` }),
     }),
-    getShopPageByShopCode: build.query<
-      GetShopPageByShopCodeApiResponse,
-      GetShopPageByShopCodeApiArg
+    getShopPageByShopId: build.query<
+      GetShopPageByShopIdApiResponse,
+      GetShopPageByShopIdApiArg
     >({
-      query: (queryArg) => ({ url: `/shop-page/${queryArg["shop-code"]}` }),
+      query: (queryArg) => ({ url: `/shop-page/${queryArg["shop-id"]}` }),
     }),
     postProductByProductIdUserAndUserIdAddToCart: build.mutation<
       PostProductByProductIdUserAndUserIdAddToCartApiResponse,
@@ -97,20 +94,20 @@ const injectedRtkApi = api.injectEndpoints({
         url: `/product/${queryArg["product-id"]}/reviews`,
       }),
     }),
-    getShopByShopCodeReviews: build.query<
-      GetShopByShopCodeReviewsApiResponse,
-      GetShopByShopCodeReviewsApiArg
+    getShopByShopIdReviews: build.query<
+      GetShopByShopIdReviewsApiResponse,
+      GetShopByShopIdReviewsApiArg
     >({
-      query: (queryArg) => ({ url: `/shop/${queryArg["shop-code"]}/reviews` }),
+      query: (queryArg) => ({ url: `/shop/${queryArg["shop-id"]}/reviews` }),
     }),
-    postUserByUserIdProductandProductIdReviews: build.mutation<
-      PostUserByUserIdProductandProductIdReviewsApiResponse,
-      PostUserByUserIdProductandProductIdReviewsApiArg
+    postUserByUserIdProductAndProductIdReviews: build.mutation<
+      PostUserByUserIdProductAndProductIdReviewsApiResponse,
+      PostUserByUserIdProductAndProductIdReviewsApiArg
     >({
       query: (queryArg) => ({
-        url: `/user/${queryArg["user-id"]}/product${queryArg["product-id"]}/reviews`,
+        url: `/user/${queryArg["user-id"]}/product/${queryArg["product-id"]}/reviews`,
         method: "POST",
-        body: queryArg.review,
+        body: queryArg.saveReview,
       }),
     }),
     postShopSignUp: build.mutation<
@@ -150,7 +147,6 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/user/orders/users/${queryArg["user-id"]}`,
       }),
-      providesTags: ["Order"]
     }),
     postUserOrdersUsersByUserId: build.mutation<
       PostUserOrdersUsersByUserIdApiResponse,
@@ -161,7 +157,6 @@ const injectedRtkApi = api.injectEndpoints({
         method: "POST",
         body: queryArg.createOrder,
       }),
-      invalidatesTags: ["Order"]
     }),
     getUserOrdersShopsByShopId: build.query<
       GetUserOrdersShopsByShopIdApiResponse,
@@ -169,6 +164,7 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/user/orders/shops/${queryArg["shop-id"]}`,
+        params: { status: queryArg.status },
       }),
     }),
     patchUserOrdersByOrderIdStatus: build.mutation<
@@ -177,6 +173,16 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/user/orders/${queryArg["order-id"]}/status`,
+        method: "PATCH",
+        body: queryArg.body,
+      }),
+    }),
+    patchUserOrdersByOrderIdUsersAndUserIdReturn: build.mutation<
+      PatchUserOrdersByOrderIdUsersAndUserIdReturnApiResponse,
+      PatchUserOrdersByOrderIdUsersAndUserIdReturnApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/user/orders/${queryArg["order-id"]}/users/${queryArg["user-id"]}/return`,
         method: "PATCH",
         body: queryArg.body,
       }),
@@ -219,11 +225,11 @@ export type GetProductPageByProductIdApiArg = {
   /** ID страницы */
   "product-id": Uuid;
 };
-export type GetShopPageByShopCodeApiResponse =
+export type GetShopPageByShopIdApiResponse =
   /** status 200 Метод успешно отработал */ СтраницаТовара2;
-export type GetShopPageByShopCodeApiArg = {
-  /** Код магазина/бренда */
-  "shop-code": Sluggable;
+export type GetShopPageByShopIdApiArg = {
+  /** ID страницы */
+  "shop-id": Uuid;
 };
 export type PostProductByProductIdUserAndUserIdAddToCartApiResponse = unknown;
 export type PostProductByProductIdUserAndUserIdAddToCartApiArg = {
@@ -279,24 +285,24 @@ export type GetProductByProductIdReviewsApiArg = {
   /** ID страницы */
   "product-id": Uuid;
 };
-export type GetShopByShopCodeReviewsApiResponse =
+export type GetShopByShopIdReviewsApiResponse =
   /** status 200 Метод успешно отработал */ Review[];
-export type GetShopByShopCodeReviewsApiArg = {
-  /** Код магазина/бренда */
-  "shop-code": Sluggable;
+export type GetShopByShopIdReviewsApiArg = {
+  /** ID страницы */
+  "shop-id": Uuid;
 };
-export type PostUserByUserIdProductandProductIdReviewsApiResponse =
+export type PostUserByUserIdProductAndProductIdReviewsApiResponse =
   /** status 201 Метод успешно отработал */ {
     /** Идентификатор отзыва */
     reviewId: string;
   };
-export type PostUserByUserIdProductandProductIdReviewsApiArg = {
+export type PostUserByUserIdProductAndProductIdReviewsApiArg = {
   /** ID страницы */
   "user-id": Uuid;
   /** ID страницы */
   "product-id": Uuid;
   /** Данные элемента страницы */
-  review: Review;
+  saveReview: SaveReview;
 };
 export type PostShopSignUpApiResponse =
   /** status 200 Метод успешно отработал */ {
@@ -354,15 +360,29 @@ export type GetUserOrdersShopsByShopIdApiResponse =
 export type GetUserOrdersShopsByShopIdApiArg = {
   /** ID of the shop */
   "shop-id": string;
+  /** Order status */
+  status?: string;
 };
 export type PatchUserOrdersByOrderIdStatusApiResponse =
-  /** status 200 Successful response */ Order;
+  /** status 200 Successful response */ void;
 export type PatchUserOrdersByOrderIdStatusApiArg = {
   /** ID of the order */
   "order-id": string;
   /** Order status update */
   body: {
     status: string;
+  };
+};
+export type PatchUserOrdersByOrderIdUsersAndUserIdReturnApiResponse =
+  /** status 200 Successful response */ Order;
+export type PatchUserOrdersByOrderIdUsersAndUserIdReturnApiArg = {
+  /** ID of the order */
+  "order-id": Uuid;
+  /** ID of the user */
+  "user-id": Uuid;
+  /** Order status update */
+  body: {
+    productVariationIds?: Uuid[];
   };
 };
 export type ОбъектСИнформациейОРаботоспособностиСервиса = {
@@ -381,6 +401,11 @@ export type MenuItem = {
   menuItems?: MenuItem[];
 };
 export type Uuid = string;
+export type КатегорияТоваров = {
+  id?: Uuid;
+  name?: string;
+  subCategories?: КатегорияТоваров[];
+};
 export type Sluggable = string;
 export type ОбъектМедиа = {
   /** ID */
@@ -430,6 +455,7 @@ export type ProductInList = {
 };
 export type ГлавнаяСтраница = {
   headerMenu?: MenuItem[];
+  categories?: КатегорияТоваров[];
   shopList?: ShopInList[];
   saleProductList?: ProductInList[];
   popularProductList?: ProductInList[];
@@ -444,11 +470,6 @@ export type Error = {
   /** Дополнительная отладочная информация
    */
   debug?: string;
-};
-export type КатегорияТоваров = {
-  id?: Uuid;
-  name?: string;
-  subCategories?: КатегорияТоваров[];
 };
 export type FiltersAndSorting = {
   categories?: КатегорияТоваров[];
@@ -547,11 +568,13 @@ export type UserShort = {
   name?: string;
 };
 export type Review = {
-  id?: Uuid;
   rating?: number;
-  date?: string;
   text?: string;
   user?: UserShort;
+};
+export type SaveReview = {
+  rating?: number;
+  text?: string;
 };
 export type ShopProfile = {
   id?: Uuid;
@@ -592,7 +615,7 @@ export type ProductInOrder = {
   colors?: Цвет;
   sizes?: Размер;
   images?: ОбъектМедиа;
-  quantity?: number;
+  quantity: number;
 };
 export type Order = {
   id?: string;
@@ -620,15 +643,15 @@ export const {
   useGetMainPageQuery,
   useGetCatalogPageQuery,
   useGetProductPageByProductIdQuery,
-  useGetShopPageByShopCodeQuery,
+  useGetShopPageByShopIdQuery,
   usePostProductByProductIdUserAndUserIdAddToCartMutation,
   useGetUserByUserIdCartQuery,
   usePostUserSignInMutation,
   usePostUserSignUpMutation,
   usePostUserRefreshMutation,
   useGetProductByProductIdReviewsQuery,
-  useGetShopByShopCodeReviewsQuery,
-  usePostUserByUserIdProductandProductIdReviewsMutation,
+  useGetShopByShopIdReviewsQuery,
+  usePostUserByUserIdProductAndProductIdReviewsMutation,
   usePostShopSignUpMutation,
   usePostShopByShopIdProductsMutation,
   usePostShopSignInMutation,
@@ -636,4 +659,5 @@ export const {
   usePostUserOrdersUsersByUserIdMutation,
   useGetUserOrdersShopsByShopIdQuery,
   usePatchUserOrdersByOrderIdStatusMutation,
+  usePatchUserOrdersByOrderIdUsersAndUserIdReturnMutation,
 } = injectedRtkApi;

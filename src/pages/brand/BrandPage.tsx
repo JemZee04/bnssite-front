@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom"
-import { useGetShopPageByShopCodeQuery } from "../../store/beekneesApi";
 import { Button, List } from "antd";
 import { AddToCartButton } from "../../components/AddToCartButton";
 import { AddToFavoritesButton } from "../../components/AddToFavoritesButton";
@@ -8,6 +7,7 @@ import ProductCard from "../../components/productCard/ProducrCard";
 import RatingIcon from '../../assets/icons/rate.svg';
 import MarkIcon from '../../assets/icons/mark.svg';
 import { CATALOG_PATH } from "../../shared/utils/constants";
+import { useGetShopPageByShopIdQuery } from "../../store/beekneesApi";
 
 export const BrandPage: React.FC = () => {
 
@@ -16,7 +16,7 @@ export const BrandPage: React.FC = () => {
 
     const brandId = useMemo(() => brandPageParams['brandId'], [brandPageParams]);
 
-    const { isLoading, data } = useGetShopPageByShopCodeQuery({ "shop-code": brandId ?? '' });
+    const { isLoading, data } = useGetShopPageByShopIdQuery({ "shop-id": brandId ?? '' });
 
 
     const onGoToCatalogClick = () => {

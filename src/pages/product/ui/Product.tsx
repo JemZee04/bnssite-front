@@ -1,6 +1,6 @@
 import { useParams, useSearchParams } from "react-router-dom";
 import { useGetProductPageByProductIdQuery } from "../../../store/beekneesApi";
-import { Col, Image, Rate, Row, Spin, Statistic, Tabs } from "antd";
+import { Col, ConfigProvider, Image, Rate, Row, Spin, Statistic, Tabs } from "antd";
 import NO_IMAGE from '../../../assets/images/no_image.png';
 import { LikeOutlined } from "@ant-design/icons";
 import { BrandCard } from "../../../widgets/brands/BrandCard";
@@ -35,29 +35,32 @@ const Product: React.FC = () => {
     return isLoading
         ? <Spin />
         : <section style={{
-            padding: 30
+            padding: 30,
+            backgroundColor: "#2E3345",
         }}>
-            <Row style={{ width: '100%' }} gutter={30}>
-                <Col span={12}>
+            <div style={{ width: '95%', margin: "0 auto", display: "flex", gap: 20 }}>
+                <div style={{width: 733, height: 960}}>
                     <Image
                         width='100%'
                         height={'100%'}
                         src={data?.product?.images?.at(0)?.filepath ?? NO_IMAGE}
                         fallback={NO_IMAGE}
                     />
-                </Col>
+                </div>
                 <Col span={12}>
                     <Row gutter={10}>
                         <Col span={12}>
-                            <Row justify='space-between' align='middle'>
+                            <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginRight: 25, marginBottom: 10}}>
                                 <Rate value={data?.product?.rating ?? 1} disabled />
-                                <Statistic value={data?.product?.quantityReviews ?? 0} title='Отзывов' prefix={<LikeOutlined />} />
-                            </Row>
+                                <div style={{display: "flex", gap: 5}}>
+                                    <p style={{color: "#C7C7C7", fontWeight: 400, fontSize: 24, fontFamily: "Source Sans 3"}}>{data?.product?.quantityReviews ?? 0} отзывов</p>
+                                </div>
+                            </div>
+                            <div>
+                                <h2 style={{fontFamily: 'Source Sans 3', color: "#FFFFFF", fontWeight: 700, fontSize:35}}>{data?.product?.name ?? 'Товар'}</h2>
+                            </div>
                             <Row>
-                                <h2>{data?.product?.name ?? 'Товар'}</h2>
-                            </Row>
-                            <Row>
-                                <h6>{data?.product?.shop?.name ?? 'Бренд'}</h6>
+                                <h6 style={{fontFamily: 'Source Sans 3', color: "#FFFFFF", fontWeight: 400, fontSize:30}}>{data?.product?.shop?.name ?? 'Бренд'}</h6>
                             </Row>
                         </Col>
                         <Col span={12}>
@@ -69,8 +72,8 @@ const Product: React.FC = () => {
                         </Col>
                     </Row>
                     <Row>
-                        <div style={{ fontSize: 40, fontWeight: 'bold' }}>
-                            {data?.product?.price ?? 'Цена не указана'}
+                        <div style={{fontFamily: 'Source Sans 3', color: "#FFFFFF", fontWeight: 700, fontSize:35, marginTop: 45}}>
+                            {data?.product?.price ?? 'Цена не указана'} руб.
                         </div>
                     </Row>
                     <Row gutter={20}>
@@ -83,22 +86,44 @@ const Product: React.FC = () => {
                             ))}
                         </Col>
                     </Row>
-                    <Row gutter={20}>
+                    <div style={{padding: "10px 0 25px"}}>
                         {selectedSizeId && <div>{`Выбранный размер ${data?.product?.sizes?.find(size => size.id == selectedSizeId)?.name}`}</div>}
+                        <p style={{fontFamily: "Source Sans 3", fontWeight: 400, fontSize: 24, color: "#FFFFFF", paddingBottom: 5}}>Выбрать размер:</p>
                         <SelectSizeCard sizes={data?.product?.sizes ?? [{ id: '2fsfs', name: 'XS' }]} onSelect={onSelectSize} />
-                    </Row>
-                    <Row gutter={20}>
-                        <Col span={16}><AddToCartButton item={{ ...data?.product, colors: data?.product?.colors }} /></Col>
-                        <Col span={8}> <AddToFavoritesButton item={{ ...data?.product, colors: data?.product?.colors }} /> </Col>
-                    </Row>
+                    </div>
+                    <div style={{display: "flex", gap: 10, alignItems: "center"}}>
+                        <div><AddToCartButton item={{ ...data?.product, colors: data?.product?.colors }} /></div>
+                        <div> <AddToFavoritesButton item={{ ...data?.product, colors: data?.product?.colors }} /> </div>
+                    </div>
+                    <ConfigProvider
+                        theme={{
+                            token: {
+                                fontFamily: "Source Sans 3",
+                                colorText: "#FFFFFF",
+                                fontSize: 18
+                            },
+                            components: {
+                                Tabs: {
+                                    inkBarColor: "#BDFF2E",
+                                    itemActiveColor: "#BDFF2E",
+                                    itemColor: "#FFFFFF",
+                                    itemSelectedColor: "#BDFF2E",
+                                    titleFontSize: 20,
+                                    itemHoverColor: "#BDFF2E",
+                                    fontFamily: "Source Sans 3",
+                                },
+                            },
+                        }}
+                    >
                     <Tabs
                         defaultActiveKey='1'
                         items={[
                             { key: '1', label: 'Описание', children: data?.product?.description }
                         ]}
                     />
+                    </ConfigProvider>
                 </Col>
-            </Row>
+            </div>
         </section>
 
 

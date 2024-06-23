@@ -216,7 +216,7 @@
         "summary": "Страница магазина/бренда",
         "parameters": [
           {
-            "$ref": "#/components/schemas/Uuid"
+            "$ref": "#/components/parameters/shopId"
           }
         ],
         "responses": {
@@ -472,7 +472,7 @@
         "summary": "Получение отзывов на товары по магазину",
         "parameters": [
           {
-            "$ref": "#/components/schemas/Uuid"
+            "$ref": "#/components/parameters/shopId"
           }
         ],
         "responses": {
