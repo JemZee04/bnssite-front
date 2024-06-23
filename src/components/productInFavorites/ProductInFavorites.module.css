@@ -1,0 +1,20 @@
+.Content{
+    font-family: "Source Sans 3";
+    font-size: 16px;
+    font-weight: 400;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.WrapContent{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.Separator{
+    width: 4px;
+    height: 4px;
+    background-color: #BDFF2E;
+    border-radius: 4px;
+}

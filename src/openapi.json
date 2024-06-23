@@ -211,12 +211,12 @@
         ]
       }
     },
-    "/shop-page/{shop-code}": {
+    "/shop-page/{shop-id}": {
       "get": {
         "summary": "Страница магазина/бренда",
         "parameters": [
           {
-            "$ref": "#/components/parameters/shopCode"
+            "$ref": "#/components/schemas/Uuid"
           }
         ],
         "responses": {
@@ -467,12 +467,12 @@
         ]
       }
     },
-    "/shop/{shop-code}/reviews": {
+    "/shop/{shop-id}/reviews": {
       "get": {
         "summary": "Получение отзывов на товары по магазину",
         "parameters": [
           {
-            "$ref": "#/components/parameters/shopCode"
+            "$ref": "#/components/schemas/Uuid"
           }
         ],
         "responses": {
@@ -498,7 +498,7 @@
         ]
       }
     },
-    "/user/{user-id}/product{product-id}/reviews": {
+    "/user/{user-id}/product/{product-id}/reviews": {
       "post": {
         "tags": [
           "Review"
@@ -518,7 +518,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/review"
+                "$ref": "#/components/schemas/saveReview"
               }
             }
           }
@@ -790,6 +790,15 @@
               "format": "uuid"
             },
             "description": "ID of the shop"
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Order status"
           }
         ],
         "responses": {
@@ -837,6 +846,61 @@
                 "properties": {
                   "status": {
                     "type": "string"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "404": {
+            "$ref": "#/components/responses/404Error"
+          }
+        }
+      }
+    },
+    "/user/orders/{order-id}/users/{user-id}/return": {
+      "patch": {
+        "summary": "Update the status of an order",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "order-id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Uuid"
+            },
+            "description": "ID of the order"
+          },
+          {
+            "in": "path",
+            "name": "user-id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Uuid"
+            },
+            "description": "ID of the user"
+          }
+        ],
+        "requestBody": {
+          "description": "Order status update",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "productVariationIds": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Uuid"
+                    }
                   }
                 },
                 "required": [
@@ -1100,7 +1164,10 @@
             "type": "string"
           },
           "productItems": {
-            "$ref": "#/components/schemas/ProductInCreateOrder"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductInCreateOrder"
+            }
           }
         }
       },
@@ -1132,6 +1199,12 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/menuItem"
+            }
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/category"
             }
           },
           "shopList": {
@@ -1734,16 +1807,9 @@
       "review": {
         "type": "object",
         "properties": {
-          "id": {
-            "$ref": "#/components/schemas/Uuid"
-          },
           "rating": {
             "type": "integer",
             "example": 5
-          },
-          "date": {
-            "type": "string",
-            "example": "11.04.24"
           },
           "text": {
             "type": "string",
@@ -1764,9 +1830,6 @@
           "text": {
             "type": "string",
             "example": "Отличная футболка"
-          },
-          "userId": {
-            "$ref": "#/components/schemas/Uuid"
           }
         }
       },
