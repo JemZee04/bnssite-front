@@ -11,7 +11,7 @@ export const FavoritesButton: React.FC = () => {
     const favoritesTotal = useAppSelector(favoritesSelectors.selectTotal);
 
     return (
-        <Link to={FAVOURITES_PATH} state={{ previousLocation: location }}>
+        <Link style={{width: "100%", margin: 0, height: "32px"}} to={FAVOURITES_PATH} state={{ previousLocation: location }}>
             <Badge count={favoritesTotal}>
                 <Button
                     iconPosition='end'

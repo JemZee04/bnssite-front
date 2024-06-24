@@ -2,7 +2,6 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { useGetProductPageByProductIdQuery } from "../../../store/beekneesApi";
 import { Col, ConfigProvider, Image, Modal, Rate, Row, Spin, Statistic, Tabs } from "antd";
 import NO_IMAGE from '../../../assets/images/no_image.png';
-import { LikeOutlined } from "@ant-design/icons";
 import { BrandCard } from "../../../widgets/brands/BrandCard";
 import { useMemo, useState } from "react";
 import { Size } from "../../../@types/types";
@@ -10,6 +9,7 @@ import { SelectSizeCard } from "../../../components/SelectSizeCard";
 import { AddToCartButton } from "../../../components/AddToCartButton";
 import { AddToFavoritesButton } from "../../../components/AddToFavoritesButton";
 import Reviews from "../../../widgets/reviews/Reviews";
+import styles from "./Product.module.css";
 
 const Product: React.FC = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -39,8 +39,8 @@ const Product: React.FC = () => {
             padding: 30,
             backgroundColor: "#2E3345",
         }}>
-            <div style={{ width: '95%', margin: "0 auto", display: "flex", gap: 20 }}>
-                <div style={{width: 733, height: 960}}>
+            <div className={styles.WrapProduct}>
+                <div className={styles.WrapImage}>
                     <Image
                         width='100%'
                         height={'100%'}
@@ -48,10 +48,10 @@ const Product: React.FC = () => {
                         fallback={NO_IMAGE}
                     />
                 </div>
-                <Col span={12}>
-                    <Row gutter={10}>
-                        <Col span={12}>
-                            <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginRight: 25, marginBottom: 10}}>
+                <div style={{flexGrow: 1}}>
+                    <div className={styles.WrapInfo}>
+                        <div style={{display: "flex", gap: 15, flexDirection: "column"}}>
+                            <div style={{display: "flex", gap: 15, flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", marginRight: 25, marginBottom: 10}}>
                                 <Rate value={data?.product?.rating ?? 1} disabled />
                                 <div style={{display: "flex", gap: 5}}>
                                     <p onClick={() => setIsOpen(true)} style={{cursor: "pointer", color: "#C7C7C7", fontWeight: 400, fontSize: 24, fontFamily: "Source Sans 3"}}>{data?.product?.quantityReviews ?? 4} отзывов</p>
@@ -63,7 +63,7 @@ const Product: React.FC = () => {
                             <Row>
                                 <h6 style={{fontFamily: 'Source Sans 3', color: "#FFFFFF", fontWeight: 400, fontSize:30}}>{data?.product?.shop?.name ?? 'Бренд'}</h6>
                             </Row>
-                        </Col>
+                        </div>
                         <Col span={12}>
                             <BrandCard
                                 title={data?.product?.shop?.name ?? 'Бренд'}
@@ -71,7 +71,7 @@ const Product: React.FC = () => {
                                 id={data?.product?.shop?.id ?? ''}
                             />
                         </Col>
-                    </Row>
+                    </div>
                     <Row>
                         <div style={{fontFamily: 'Source Sans 3', color: "#FFFFFF", fontWeight: 700, fontSize:35, marginTop: 45}}>
                             {data?.product?.price ?? 'Цена не указана'} руб.
@@ -123,7 +123,7 @@ const Product: React.FC = () => {
                         ]}
                     />
                     </ConfigProvider>
-                </Col>
+                </div>
             </div>
             <ConfigProvider
                theme={{

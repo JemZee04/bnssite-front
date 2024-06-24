@@ -11,9 +11,10 @@ export const CartButton: React.FC = () => {
     const cartTotal = useAppSelector(selectTotalCount);
 
     return (
-        <Link to={CART_PATH} state={{ previousLocation: location }}>
+        <Link style={{width:"100%", margin: 0, height: "32px"}} to={CART_PATH} state={{ previousLocation: location }}>
             <Badge count={cartTotal}>
                 <Button
+                    style={{width: "100%"}}
                     iconPosition='end'
                     icon={<ShoppingCartOutlined />}>
                     Корзина

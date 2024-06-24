@@ -5,6 +5,7 @@ import { FavoritesButton } from "../../components/FavoritesButton"
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useMemo } from "react";
 import { CATALOG_PATH, PROFILE_PATH } from "../../shared/utils/constants";
+import styles from "./Menu.module.css";
 
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -40,15 +41,13 @@ export const AppMenu: React.FC = () => {
                     mode='horizontal'
                     items={headerMenu} />
             </Col>
-            <Col >
-                <Space size={10}>
-                    <CartButton />
-                    <FavoritesButton />
-                    <Link to={PROFILE_PATH} state={{ previousLocation: location }}>
-                        <Button iconPosition='end' icon={<UserOutlined />}>Профиль</Button>
-                    </Link>
-                </Space>
-            </Col>
+            <div className={styles.WrapButtons}>
+                <CartButton />
+                <FavoritesButton />
+                <Link to={PROFILE_PATH} state={{ previousLocation: location }}>
+                    <Button iconPosition='end' icon={<UserOutlined />}>Профиль</Button>
+                </Link>
+            </div>
         </Row>
     </>
 }

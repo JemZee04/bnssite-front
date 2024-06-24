@@ -20,6 +20,7 @@ const AppLayout: React.FC = () => {
         width: '100%',
         display: 'flex',
         alignItems: 'center',
+        height: 'fit-content'
       }}>
         <Row gutter={[10, 10]} style={{ width: '100%' }} justify='center' align='middle'>
           {/* <Col>
