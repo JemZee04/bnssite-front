@@ -24,7 +24,7 @@ export const ModalRoute: React.FC<ModalRouteProps> = ({ prevLocation, children }
             },
             components: {
                 Modal: {
-                    contentBg: "#6712FB",
+                    contentBg: "#5E6375",
                     titleColor: "#FFFFFF"
                 },
             },

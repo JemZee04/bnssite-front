@@ -30,7 +30,7 @@ const Cart: React.FC = () => {
             maxHeight: '850px',
             overflowY: 'hidden',
             overflowX: 'hidden',
-            backgroundColor: "#6712FB",
+            backgroundColor: "#5E6375",
             borderRadius: "20px"
         }}>
             <h1 className={styles.Title}>Корзина</h1>
@@ -64,7 +64,7 @@ const Cart: React.FC = () => {
                     },
                     components: {
                         Modal: {
-                            headerBg: "#6712FB",
+                            headerBg: "#5E6375",
                             lineWidth: 4,
                             lineType: "solid",
                             colorPrimaryBorder: "#BDFF2E"

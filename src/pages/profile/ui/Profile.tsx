@@ -54,13 +54,24 @@ const Profile: React.FC = () => {
                     ?   <p style={{fontFamily: "Source Sans 3", fontWeight: 700, fontSize: 16, color: "#C7C7C7"}}>Загрузка...</p>
                     :   data?.length === 0 || data === undefined
                         ?   <p style={{fontFamily: "Source Sans 3", fontWeight: 700, fontSize: 16, color: "#C7C7C7"}}>Нет заказов</p>
-                        : <Collapse bordered={false} items={data?.map((item, index) => {
+                        : 
+                        <ConfigProvider
+                            theme={{
+                                token: {
+                                    colorText: "#FFFFFF",
+                                    colorTextDisabled: "#C7C7C7",
+                                    colorPrimary: "#6712FB"
+                                },
+                            }}
+                        >
+                        <Collapse bordered={false} items={data?.map((item, index) => {
                             return {
                                 key: index,
                                 label: <OrderHeader id={index + 1} statusName={item.status ?? ""} dateOrder={new Date(item.date ?? "")} countItems={item.productItems?.length ?? 1} totalCost={item.totalPrice ?? 0}/>,
                                 children: <OrderCardList status={item.status ?? "Заказ выдан"} productItems={item.productItems ?? []}/>
                             }
                         })} /> 
+                        </ConfigProvider>
                 }
                 </>
                 
