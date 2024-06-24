@@ -535,7 +535,7 @@ export type ФутерСтраницы = {
 export type СтраницаТовара2 = {
   headerMenu?: MenuItem[];
   shop?: Shop;
-  popularProductOfShopList?: ProductInList[];
+  popularProductList?: ProductInList[];
   footer?: ФутерСтраницы;
 };
 export type ProductInCart = {

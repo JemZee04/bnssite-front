@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, List } from "antd";
 import { AddToCartButton } from "../../components/AddToCartButton";
@@ -19,6 +19,9 @@ export const BrandPage: React.FC = () => {
 
     const { isLoading, data } = useGetShopPageByShopIdQuery({ "shop-id": brandId ?? '' });
 
+    useEffect(() => {
+        console.log(data);
+    }, [isLoading]);
 
     const onGoToCatalogClick = () => {
         navigate(`${CATALOG_PATH}?brands=${brandId}`);
@@ -77,7 +80,7 @@ export const BrandPage: React.FC = () => {
             <div style={{padding: "20px 60px"}}>
                 <h1 style={{fontFamily: "Source Sans 3", fontWeight: 700, fontSize: 40, color: "#FFFFFF"}}>{"Популярные товары".toLocaleUpperCase()}</h1>
                 <List
-                    dataSource={data?.popularProductOfShopList ?? []}
+                    dataSource={data?.popularProductList ?? []}
                     grid={{ gutter: 8 }}
                     renderItem={(item, _) => (
                         <List.Item>
